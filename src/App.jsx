@@ -10,9 +10,22 @@ const App = () => {
   //   All toast will fire here
   useEffect(() => {
     if (toastMsg) {
-      toast(toastMsg, {
-        position: "bottom-center",
-      });
+      const firstSpaceIndex = toastMsg.indexOf(" ");
+      const type = toastMsg.substring(0, firstSpaceIndex);
+      const message = toastMsg.substring(firstSpaceIndex + 1).trim();
+      if (type === "suc") {
+        toast.success(message, {
+          position: "bottom-center",
+        });
+      } else if (type === "err") {
+        toast.error(message, {
+          position: "bottom-center",
+        });
+      } else {
+        toast(message, {
+          position: "bottom-center",
+        });
+      }
     }
     setToastMsg("");
   }, [toastMsg]);

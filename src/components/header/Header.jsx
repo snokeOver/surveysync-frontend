@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 
 const Header = () => {
   return (
-    <div>
+    <div className="navbar-color">
       <div className="container mx-auto">
         <Navbar />
       </div>

@@ -4,11 +4,13 @@ import RingLoading from "../shared/RingLoading";
 import NavigationLink from "./NavigationLink";
 import SubNavLink from "./SubNavLink";
 import SiteName from "../shared/SiteName";
+import ThemeButton from "./ThemeButton";
+import useData from "../../hooks/useData";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const user = {};
-  const loading = false;
-  const pageLoading = false;
+  const { siteLogo, pageLoading } = useData();
+  const { user, loading } = useAuth();
 
   const fallbackPPUrl = "https://i.ibb.co/vxg6nY4/user.png";
 
@@ -104,7 +106,7 @@ const Navbar = () => {
             className="text-3xl font-semibold font-rubik flex items-center"
             to="/"
           >
-            <img src="/logo.svg" alt="" className="w-12 mr-1" />
+            <img src={siteLogo} alt="" className="w-12 mr-1" />
 
             <div className="hidden md:flex ">
               <SiteName />
@@ -118,6 +120,7 @@ const Navbar = () => {
       {/* Navbar End */}
       <div className="navbar-end">
         {/* Here the theme toggle button component */}
+        <ThemeButton />
         {loading || pageLoading ? (
           <RingLoading />
         ) : user ? (
@@ -174,12 +177,12 @@ const Navbar = () => {
         ) : (
           <>
             <NavLink to="/join" className="mx-2">
-              <button className=" p-0 text-prime bg-transparent  hover:text-sky-700 dark:hover:text-gray-100 dark:hover:border-indigo-500">
+              <button className=" p-0 text-gray-100 bg-transparent  hover:text-prime ">
                 Join
               </button>
             </NavLink>
             <NavLink to="/login">
-              <button className="btn py-2 md:py-3 md:px-7 rounded-sm text-gray-100 border-none bg-prime hover:bg-gray-200 hover:text-prime">
+              <button className="btn py-2 md:py-3 md:px-7 rounded-sm text-gray-800 border-none bg-prime hover:bg-gray-200">
                 Login
               </button>
             </NavLink>

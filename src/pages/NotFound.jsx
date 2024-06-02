@@ -2,12 +2,13 @@ import { NavLink } from "react-router-dom";
 
 import PageHelmet from "../components/shared/PageHelmet";
 import PrimaryButton from "../components/shared/PrimaryButton";
+import Container from "../components/shared/Container";
 const NotFound = () => {
   return (
     <>
       <PageHelmet pageName="Not Found" />
-      <div className=" xl:my-20 container bg-base-100 m-auto p-5 md:p-10 min-h-screen">
-        <div className="hero py-10 rounded-lg bg-base-200">
+      <Container>
+        <div className="hero  rounded-lg bg-base-200 min-h-screen">
           <div className="hero-content text-center">
             <div className="max-w-md">
               <div>
@@ -30,7 +31,7 @@ const NotFound = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 };

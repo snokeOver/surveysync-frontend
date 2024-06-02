@@ -1,8 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { FaPhoneAlt, FaLocationArrow } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import SiteName from "../shared/SiteName";
 import SocialLinks from "../shared/SocialLinks";
 import useData from "../../hooks/useData";
 
