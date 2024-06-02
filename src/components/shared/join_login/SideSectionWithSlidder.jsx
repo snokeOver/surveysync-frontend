@@ -5,7 +5,7 @@ const SideSectionWithSlidder = ({ writings }) => {
   return (
     <>
       <div>
-        <div className="px-2 text-center lg:text-left flex flex-col gap-5">
+        <div className="px-2 text-center  flex flex-col gap-5">
           <h1 className="text-4xl text-primary font-bold">
             Welcome to {siteName}
           </h1>

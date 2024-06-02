@@ -11,6 +11,8 @@ import GithubButton from "../components/shared/join_login/GithubButton.jsx";
 import ActionButton from "../components/shared/ActionButton.jsx";
 import Container from "../components/shared/Container.jsx";
 import SideSectionWithSlidder from "../components/shared/join_login/SideSectionWithSlidder.jsx";
+import { useFormik } from "formik";
+import { signInSchema } from "../helper/signUpSchema.js";
 
 const Login = () => {
   const {
@@ -19,100 +21,91 @@ const Login = () => {
     githubRegister,
     logOutSuccess,
     setLogOutSuccess,
+    setRegiSuccess,
   } = useAuth();
-  const { setToastMsg, setPageLoading } = useData();
+  const {
+    setToastMsg,
+    setGBtnLoading,
+    setGitBtnLoading,
+    setActnBtnLoading,
+    gitBtnLoading,
+    gBtnLoading,
+    actnBtnLoading,
+  } = useData();
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [googleErrMsg, setGoogleErrMsg] = useState("");
 
   const [showPass, setShowPass] = useState(false);
-
-  // This should handle all the changes of different fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  // Handle errors toast
-  useEffect(() => {
-    if (googleErrMsg) {
-      setToastMsg(googleErrMsg);
-    }
-  }, [googleErrMsg]);
-
-  // This should handle submission of form
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setPageLoading(true);
-    setGoogleErrMsg("");
-
-    signIn(formData.email, formData.password)
-      .then((result) => {
-        firebaseLoginSuccess(result);
-      })
-      .catch((err) => {
-        firebaseLoginError(err);
-      });
-    setFormData({
-      email: "",
-      password: "",
-    });
-  };
-
-  // This is for first render
-  useEffect(() => {
-    setGoogleErrMsg();
-  }, []);
-
-  // handle the Register with Google button
-  const handleGoogleRegister = () => {
-    googleRegister()
-      .then((result) => {
-        firebaseLoginSuccess(result);
-      })
-      .catch((err) => {
-        firebaseLoginError(err);
-      });
-  };
-
-  // Handle the Register with Github button
-  const handleGithubRegister = () => {
-    githubRegister()
-      .then((result) => {
-        firebaseLoginSuccess(result);
-      })
-      .catch((err) => {
-        firebaseLoginError(err);
-      });
-  };
 
   // handle Firebase error while registering
   const firebaseLoginError = (err) => {
     console.log(err.message);
     console.log(err.code);
     if (err.code === "auth/invalid-credential") {
-      setGoogleErrMsg("Either email or password is wrong  !");
+      setToastMsg("err Either email or password is wrong  !");
     } else {
-      setGoogleErrMsg(err.code);
+      setToastMsg(`err ${err.code}`);
     }
-    setPageLoading(false);
+    setActnBtnLoading(false);
+    setGitBtnLoading(false);
+    setGBtnLoading(false);
   };
 
   // Handle All successful firebase Login
-  const firebaseLoginSuccess = (result) => {
-    setToastMsg("Login Successful  !");
-
-    setPageLoading(false);
+  const firebaseLoginSuccess = () => {
+    setToastMsg("suc Login Successful  !");
+    setActnBtnLoading(false);
+    setGitBtnLoading(false);
+    setGBtnLoading(false);
     navigate(location?.state ? location.state : "/");
+  };
+
+  // Initial values for the form and formik
+  const initialValues = {
+    Email: "",
+    Password: "",
+  };
+
+  // Handle the sign in process(email-password based) using formik and validation schema design with yup
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: signInSchema,
+
+    onSubmit: async (values, action) => {
+      setActnBtnLoading(true);
+      try {
+        const { user } = await signIn(values.Email, values.Password);
+        setRegiSuccess(true);
+        firebaseLoginSuccess();
+      } catch (err) {
+        firebaseLoginError(err, values.Email);
+      } finally {
+        action.resetForm();
+      }
+    },
+  });
+
+  // handle the Register with Google button
+  const handleGoogleLogin = async () => {
+    setGBtnLoading(true);
+    try {
+      const response = await googleRegister();
+      firebaseLoginSuccess();
+    } catch (err) {
+      firebaseLoginError(err);
+    }
+  };
+
+  // Handle the Register with Github button
+  const handleGithubLogin = async () => {
+    setGitBtnLoading(true);
+    try {
+      const response = await githubRegister();
+      firebaseLoginSuccess();
+    } catch (err) {
+      firebaseLoginError(err);
+    }
   };
 
   // Log Out success Toast
@@ -133,10 +126,13 @@ const Login = () => {
             <LogoWithTitle title="Login Here" />
             <div className="card w-full max-w-lg shadow-2xl bg-base-100">
               {/* form section */}
-              <form className="card-body" onSubmit={handleFormSubmit}>
+              <form className="card-body" onSubmit={formik.handleSubmit}>
+                {/* email part */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text text-lg">Email</span>
+                    <span className="label-text text-lg">
+                      Email <span className="text-red-500">*</span>
+                    </span>
                   </label>
                   <label className="input input-bordered flex items-center gap-2">
                     <svg
@@ -149,20 +145,27 @@ const Login = () => {
                       <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
                     </svg>
                     <input
+                      {...formik.getFieldProps("Email")}
+                      onFocus={() => formik.setFieldTouched("Email", true)}
                       type="email"
-                      name="email"
+                      id="email"
                       placeholder="name@domain.com"
-                      value={formData.email || ""}
                       className="grow placeholder-gray-400 text-sm"
-                      onChange={handleChange}
-                      required
                     />
                   </label>
+                  {formik.errors.Email && formik.touched.Email && (
+                    <span className="text-red-500 mt-2">
+                      {formik.errors.Email}
+                    </span>
+                  )}
                 </div>
 
+                {/* password part */}
                 <div className="form-control relative">
                   <label className="label">
-                    <span className="label-text text-lg">Password</span>
+                    <span className="label-text text-lg">
+                      Password <span className="text-red-500">*</span>
+                    </span>
                   </label>
                   <label className="input input-bordered flex items-center gap-2">
                     <svg
@@ -178,13 +181,12 @@ const Login = () => {
                       />
                     </svg>
                     <input
+                      {...formik.getFieldProps("Password")}
+                      onFocus={() => formik.setFieldTouched("Password", true)}
                       type={showPass ? "text" : "password"}
-                      name="password"
+                      id="password"
                       placeholder="* * * * * * * * * * * *"
-                      value={formData.password || ""}
                       className="grow placeholder-gray-400 text-sm"
-                      onChange={handleChange}
-                      required
                     />
                     <span
                       className="absolute right-5 top-[3.5rem]"
@@ -197,6 +199,11 @@ const Login = () => {
                       )}
                     </span>
                   </label>
+                  {formik.errors.Password && formik.touched.Password && (
+                    <span className="text-red-500 mt-2">
+                      {formik.errors.Password}
+                    </span>
+                  )}
                 </div>
 
                 <div className="form-control mt-6">
@@ -213,12 +220,12 @@ const Login = () => {
                 <div className=" flex gap-7 flex-col justify-center">
                   {/* Login with google */}
 
-                  <div onClick={handleGoogleRegister} className="inline-block ">
+                  <div onClick={handleGoogleLogin} className="inline-block ">
                     <GoogleButton btnTitle="Join with Google" />
                   </div>
                   {/* Login with GitHub */}
 
-                  <div onClick={handleGithubRegister} className="inline-block ">
+                  <div onClick={handleGithubLogin} className="inline-block ">
                     <GithubButton btnTitle="Join with Github" />
                   </div>
                 </div>
@@ -238,7 +245,7 @@ const Login = () => {
           {/* banner part */}
           <div
             id="login_img"
-            className="bg-cover mx-5 h-[920px] bg-no-repeat flex flex-col gap-7 justify-center items-center flex-1 py-5 "
+            className="h-[920px] bg-cover mx-5  bg-no-repeat flex flex-col gap-7 justify-center items-center flex-1 py-5 "
           >
             <SideSectionWithSlidder writings="Find a survey to participate or become a surveyor" />
           </div>

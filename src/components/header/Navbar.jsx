@@ -7,10 +7,24 @@ import SiteName from "../shared/SiteName";
 import ThemeButton from "./ThemeButton";
 import useData from "../../hooks/useData";
 import useAuth from "../../hooks/useAuth";
+import useSweetAlert from "../../hooks/useSweetAlert";
+import useLogOut from "../../hooks/useLogOut";
 
 const Navbar = () => {
   const { siteLogo, pageLoading } = useData();
   const { user, loading } = useAuth();
+  const logOut = useLogOut();
+
+  const makeAlert = useSweetAlert();
+
+  // Handle LogOut operation
+  const handleLogOut = () => {
+    makeAlert("Yes, Log Me Out!").then((result) => {
+      if (result.isConfirmed) {
+        logOut();
+      }
+    });
+  };
 
   const fallbackPPUrl = "https://i.ibb.co/vxg6nY4/user.png";
 
@@ -18,9 +32,6 @@ const Navbar = () => {
   const handleImageError = (event) => {
     event.target.src = "https://i.ibb.co/vxg6nY4/user.png";
   };
-
-  // Handle LogOut operation
-  const handleLogOut = () => {};
 
   // All the navlinks
   const navItems = (

@@ -6,6 +6,10 @@ const DataProvider = ({ children }) => {
   const siteName = "SurveySync";
   const siteLogo = "/logo.svg";
   const [pageLoading, setPageLoading] = useState(false);
+  const [gBtnLoading, setGBtnLoading] = useState(false);
+  const [gitBtnLoading, setGitBtnLoading] = useState(false);
+  const [actnBtnLoading, setActnBtnLoading] = useState(false);
+
   const defaultTheme = "dark";
   const [currTheme, setCurrTheme] = useState(defaultTheme);
   const [toastMsg, setToastMsg] = useState("");
@@ -57,6 +61,12 @@ const DataProvider = ({ children }) => {
     toastMsg,
     setToastMsg,
     bannerImages,
+    gitBtnLoading,
+    gBtnLoading,
+    actnBtnLoading,
+    setGBtnLoading,
+    setGitBtnLoading,
+    setActnBtnLoading,
   };
 
   return (

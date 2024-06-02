@@ -1,6 +1,14 @@
+import useData from "../../../hooks/useData";
+import ButtonSpinner from "../ButtonSpinner";
+
 const GoogleButton = ({ btnTitle }) => {
+  const { gBtnLoading } = useData();
   return (
-    <button className="btn bg-transparent  border-primary hover:bg-none dark:hover:bg-none rounded-sm py-2 w-full ">
+    <button
+      disabled={gBtnLoading}
+      className="btn bg-transparent  border-primary hover:bg-none dark:hover:bg-none rounded-sm py-2 w-full "
+    >
+      {gBtnLoading && <ButtonSpinner />}
       <svg className="w-5" viewBox="0 0 533.5 544.3">
         <path
           d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"

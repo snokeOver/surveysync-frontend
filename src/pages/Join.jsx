@@ -1,5 +1,5 @@
 import { BsEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import useAuth from "../hooks/useAuth.jsx";
@@ -14,6 +14,7 @@ import SideSectionWithSlidder from "../components/shared/join_login/SideSectionW
 import Container from "../components/shared/Container.jsx";
 import { signUpSchema } from "../helper/signUpSchema.js";
 import useSAxios from "../hooks/useSAxios.jsx";
+import ButtonSpinner from "../components/shared/ButtonSpinner.jsx";
 
 const Join = () => {
   const sAxios = useSAxios();
@@ -21,10 +22,18 @@ const Join = () => {
     register,
     updateUser,
     googleRegister,
-    setRegiSuccess,
     githubRegister,
+    setRegiSuccess,
   } = useAuth();
-  const { setToastMsg, setPageLoading } = useData();
+  const {
+    setToastMsg,
+    setGBtnLoading,
+    setGitBtnLoading,
+    setActnBtnLoading,
+    gitBtnLoading,
+    gBtnLoading,
+    actnBtnLoading,
+  } = useData();
   const navigate = useNavigate();
 
   const [successMsg, setSuccessMsg] = useState("");
@@ -60,23 +69,26 @@ const Join = () => {
 
     setTimeout(() => {
       setRegiSuccess(false);
-      setPageLoading(false);
+      setActnBtnLoading(false);
+      setGBtnLoading(false);
+      setGitBtnLoading(false);
       navigate("/");
       setToastMsg("suc Login Successful  !");
     }, 3000);
   };
 
   // handle Firebase error while registering
-  const firebaseRegisterError = (err, email) => {
+  const firebaseRegisterError = (err, email = "") => {
     if (err.code === "auth/email-already-in-use") {
-      console.log(err.code);
       setErrorMsg(`"${email}" is already taken !`);
     } else if (err.code === "auth/invalid-email") {
       setErrorMsg(`"${email}" is invalid email !`);
-    } else setErrorMsg(err.message);
+    } else setErrorMsg(`err ${err.message}`);
 
     setSuccessMsg("");
-    setPageLoading(false);
+    setActnBtnLoading(false);
+    setGBtnLoading(false);
+    setGitBtnLoading(false);
   };
 
   // Handle the sign up process(email-password based) using formik and validation schema design with yup
@@ -85,16 +97,7 @@ const Join = () => {
     validationSchema: signUpSchema,
 
     onSubmit: async (values, action) => {
-      // console.log("Form values:", values);
-
-      setPageLoading(true);
-
-      // const postData = {
-      //   name: values.Name,
-      //   email: values.Email,
-      //   password: values.Password,
-      // };
-
+      setActnBtnLoading(true);
       try {
         const { user } = await register(values.Email, values.Password);
         setRegiSuccess(true);
@@ -107,7 +110,6 @@ const Join = () => {
         inserUsrInfo(user.email, user.uid, user.displayName);
       } catch (err) {
         firebaseRegisterError(err, values.Email);
-        setPageLoading(false);
       } finally {
         action.resetForm();
       }
@@ -115,27 +117,38 @@ const Join = () => {
   });
 
   // handle the Register with Google button
-  const handleGoogleRegister = () => {
-    setPageLoading(true);
-    googleRegister()
-      .then((result) => {
-        firebaseRegiSuccess();
-      })
-      .catch((err) => {
-        firebaseRegisterError(err);
-      });
+  const handleGoogleRegister = async () => {
+    setGBtnLoading(true);
+    try {
+      const response = await googleRegister();
+
+      if (response.user) {
+        inserUsrInfo(
+          response.user.email,
+          response.user.uid,
+          response.user.displayName
+        );
+      }
+    } catch (err) {
+      firebaseRegisterError(err);
+    }
   };
 
   // Handle the Register with Github button
-  const handleGithubRegister = () => {
-    setPageLoading(true);
-    githubRegister()
-      .then((result) => {
-        firebaseRegiSuccess();
-      })
-      .catch((err) => {
-        firebaseRegisterError(err);
-      });
+  const handleGithubRegister = async () => {
+    setGitBtnLoading(true);
+    try {
+      const response = await githubRegister();
+      if (response.user) {
+        inserUsrInfo(
+          response.user.email,
+          response.user.uid,
+          response.user.displayName
+        );
+      }
+    } catch (err) {
+      firebaseRegisterError(err);
+    }
   };
 
   return (
@@ -153,11 +166,21 @@ const Join = () => {
                   <h1 className="text-2xl font-bold text-center mb-5 text-primary">
                     Please Wait !
                   </h1>
-
-                  <ActionButton buttonText="We are logging yoy in . . ." />
+                  <button className="btn btn-outline border-primary  text-primary  py-3 rounded-2xl hover:bg-transparent hover:border-primary w-full">
+                    {(actnBtnLoading || gitBtnLoading || gBtnLoading) && (
+                      <ButtonSpinner />
+                    )}
+                    We are logging yoy in . . .
+                  </button>
                 </div>
               ) : (
                 <>
+                  {errMsg && (
+                    <p className="text-red-500 text-center dark:text-yellow-400 dark:font-light  my-3">
+                      {errMsg}
+                    </p>
+                  )}
+
                   <form className="card-body" onSubmit={formik.handleSubmit}>
                     {/* Name part */}
                     <div className="form-control">
@@ -188,11 +211,6 @@ const Join = () => {
                         </span>
                       )}
                     </div>
-                    {errMsg.nameErrMsg && (
-                      <p className="text-red-500 dark:text-yellow-400 dark:font-light text-center mt-3">
-                        {errMsg.nameErrMsg}
-                      </p>
-                    )}
 
                     {/* email part */}
                     <div className="form-control">
@@ -355,10 +373,7 @@ const Join = () => {
                       )}
 
                     <div className="form-control mt-6">
-                      <ActionButton
-                        buttonText="Register"
-                        disabledStat={false}
-                      />
+                      <ActionButton buttonText="Join" disabledStat={false} />
                     </div>
                   </form>
                   <div className="divider  mb-0 px-4">
@@ -404,7 +419,7 @@ const Join = () => {
           {/* Banner part */}
           <div
             id="login_img"
-            className="bg-cover h-[1080px] bg-no-repeat flex flex-col gap-7 justify-center items-center flex-1 py-5"
+            className=" h-[1080px] bg-cover mx-5  bg-no-repeat flex flex-col gap-7 justify-center items-center flex-1 py-5 w-full"
           >
             <SideSectionWithSlidder writings="Join to unlock extra features" />
           </div>
