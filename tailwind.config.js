@@ -10,7 +10,7 @@ export default {
     },
     extend: {
       colors: {
-        prime: "#FBBC05",
+        prime: "#FFE418",
         navColor: "#126E51",
       },
       fontFamily: {

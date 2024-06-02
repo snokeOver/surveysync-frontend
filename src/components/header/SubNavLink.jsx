@@ -7,7 +7,9 @@ const SubNavLink = ({ destination, name, badgeValue }) => {
         to={destination}
         className={({ isActive }) =>
           `${
-            isActive ? "text-prime border-b border-prime" : "hover:text-prime "
+            isActive
+              ? "text-primary border-b border-primary"
+              : "hover:text-primary "
           } w-full justify-between`
         }
       >

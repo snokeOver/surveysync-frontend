@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 
-import RingLoading from "../shared/RingLoading";
 import NavigationLink from "./NavigationLink";
 import SubNavLink from "./SubNavLink";
 import SiteName from "../shared/SiteName";
@@ -9,6 +8,7 @@ import useData from "../../hooks/useData";
 import useAuth from "../../hooks/useAuth";
 import useSweetAlert from "../../hooks/useSweetAlert";
 import useLogOut from "../../hooks/useLogOut";
+import RingLoading from "../shared/RingLoading";
 
 const Navbar = () => {
   const { siteLogo, pageLoading } = useData();
@@ -64,7 +64,7 @@ const Navbar = () => {
         </details>
       </li>
 
-      {loading || pageLoading ? (
+      {loading ? (
         <RingLoading />
       ) : (
         <>
@@ -172,7 +172,7 @@ const Navbar = () => {
 
                 <li
                   onClick={handleLogOut}
-                  className="bg-sky-400 hover:bg-sky-600 text-gray-100 rounded-2xl mt-4"
+                  className="btn btn-outline border-primary text-primary  hover:border-primary hover:bg-primary  rounded-2xl mt-4"
                 >
                   <a>Logout</a>
                 </li>

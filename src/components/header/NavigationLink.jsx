@@ -7,7 +7,13 @@ const NavigationLink = ({ destination, name, nested }) => {
       <NavLink
         className={({ isActive }) =>
           `${
-            isActive ? "text-prime" : "hover:text-prime"
+            isActive
+              ? nested === "true"
+                ? "text-primary"
+                : "text-prime"
+              : nested === "true"
+              ? "hover:text-primary"
+              : "hover:text-prime"
           } mr-1 dark:text-gray-100`
         }
         to={`${destination}`}
@@ -16,8 +22,10 @@ const NavigationLink = ({ destination, name, nested }) => {
       </NavLink>
       {pathname === destination ? (
         <div
-          className={`absolute w-full h-[1px]  py-0 rounded-none bg-prime bottom-0  ${
-            nested === "true" ? "lg:h-[1.3px] lg:-bottom-[0px]" : ""
+          className={`absolute w-full h-[1px]  py-0 rounded-none  bottom-0  ${
+            nested === "true"
+              ? "lg:h-[1.3px] lg:-bottom-[0px] bg-primary"
+              : "bg-prime"
           }`}
         ></div>
       ) : null}

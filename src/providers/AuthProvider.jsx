@@ -16,7 +16,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const nSAxios = useAxios();
-  const [loading, setLoading] = useState(false); //should be true
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [regiSuccess, setRegiSuccess] = useState(false);
   const [tokenSaved, setTokenSaved] = useState(false);
