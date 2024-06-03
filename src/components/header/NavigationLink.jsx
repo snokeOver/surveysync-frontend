@@ -14,7 +14,7 @@ const NavigationLink = ({ destination, name, nested }) => {
               : nested === "true"
               ? "hover:text-primary"
               : "hover:text-prime"
-          } mr-1 dark:text-gray-100`
+          } mr-1`
         }
         to={`${destination}`}
       >

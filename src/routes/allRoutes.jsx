@@ -9,6 +9,16 @@ import Login from "../pages/Login";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
+import ParticipatedSurveys from "../components/dashboard/user/ParticipatedSurveys";
+import ReportedSurveys from "../components/dashboard/user/ReportedSurveys";
+import MyComments from "../components/dashboard/proUser/MyComments";
+import ManageUsers from "../components/dashboard/admin/ManageUsers";
+import ManageSurveys from "../components/dashboard/admin/ManageSurveys";
+import ViewAllPayments from "../components/dashboard/admin/ViewAllPayments";
+import CreateASurvey from "../components/dashboard/surveyor/CreateASurvey";
+import MyCreatedSurveys from "../components/dashboard/surveyor/MyCreatedSurveys";
+import SurveyResponses from "../components/dashboard/surveyor/SurveyResponses";
+import SurveyFeedbackes from "../components/dashboard/surveyor/SurveyFeedbackes";
 
 const router = createBrowserRouter([
   {
@@ -55,10 +65,46 @@ const router = createBrowserRouter([
     ),
     children: [
       // Mango People routes
-      // {
-      //   path: "cart",
-      //   element: <Cart />,
-      // },
+      {
+        path: "user/surveys",
+        element: <ParticipatedSurveys />,
+      },
+      {
+        path: "user/my-reports",
+        element: <ReportedSurveys />,
+      },
+      {
+        path: "surveyor/create",
+        element: <CreateASurvey />,
+      },
+      {
+        path: "surveyor/feedbacks",
+        element: <SurveyFeedbackes />,
+      },
+      {
+        path: "surveyor/surveys",
+        element: <MyCreatedSurveys />,
+      },
+      {
+        path: "surveyor/survey/:id",
+        element: <SurveyResponses />,
+      },
+      {
+        path: "user/comments",
+        element: <MyComments />,
+      },
+      {
+        path: "admin/users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "admin/surveys",
+        element: <ManageSurveys />,
+      },
+      {
+        path: "admin/payments",
+        element: <ViewAllPayments />,
+      },
     ],
   },
 ]);

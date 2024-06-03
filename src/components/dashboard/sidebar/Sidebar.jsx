@@ -6,11 +6,14 @@ import { GrUserAdmin } from "react-icons/gr";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { MdHomeWork } from "react-icons/md";
+import { FcSurvey, FcFeedback } from "react-icons/fc";
+
+import useAuth from "../../../hooks/useAuth";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
+  const { userDetails } = useAuth();
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -64,9 +67,9 @@ const Sidebar = () => {
                 <span className="mx-4 font-medium">Statistics</span>
               </NavLink>
 
-              {/* Add Room */}
+              {/* Create a survey */}
               <NavLink
-                to="add-room"
+                to="surveyor/create"
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-primary   hover:text-gray-900 ${
                     isActive
@@ -75,13 +78,14 @@ const Sidebar = () => {
                   }`
                 }
               >
-                <BsFillHouseAddFill className="w-5 h-5" />
+                <FcSurvey className="w-5 h-5" />
 
-                <span className="mx-4 font-medium">Add Room</span>
+                <span className="mx-4 font-medium">Create Survey</span>
               </NavLink>
-              {/* My Listing */}
+
+              {/* My Surveys */}
               <NavLink
-                to="my-lists"
+                to="surveyor/surveys"
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-primary   hover:text-gray-900 ${
                     isActive
@@ -92,7 +96,23 @@ const Sidebar = () => {
               >
                 <MdHomeWork className="w-5 h-5" />
 
-                <span className="mx-4 font-medium">My Listings</span>
+                <span className="mx-4 font-medium">My Surveys</span>
+              </NavLink>
+
+              {/* Admin Feedbacks */}
+              <NavLink
+                to="surveyor/feedbacks"
+                className={({ isActive }) =>
+                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-primary   hover:text-gray-900 ${
+                    isActive
+                      ? "bg-primary  text-gray-800"
+                      : "dark:text-gray-100 text-gray-900"
+                  }`
+                }
+              >
+                <FcFeedback className="w-5 h-5" />
+
+                <span className="mx-4 font-medium">Admin Feedbacks</span>
               </NavLink>
             </nav>
           </div>

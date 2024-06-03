@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [regiSuccess, setRegiSuccess] = useState(false);
   const [tokenSaved, setTokenSaved] = useState(false);
+  const [userDetails, setUserDetails] = useState({ userRole: "User" }); //Initially should be null
 
   // Register with email and password
   const register = (email, pass) => {
@@ -91,6 +92,7 @@ const AuthProvider = ({ children }) => {
     setRegiSuccess,
     tokenSaved,
     setTokenSaved,
+    userDetails,
   };
   return (
     <AuthContext.Provider value={authItems}>{children}</AuthContext.Provider>

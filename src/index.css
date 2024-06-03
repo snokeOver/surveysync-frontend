@@ -87,3 +87,9 @@ img {
     ),
     url("https://i.ibb.co/3MfRmQZ/login-Abstract.jpg");
 }
+
+/* design of table */
+.table
+  :where(thead tr, tbody tr:not(:last-child), tbody tr:first-child:last-child) {
+  border-bottom-width: 0px;
+}

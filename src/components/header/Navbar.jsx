@@ -18,12 +18,12 @@ const Navbar = () => {
   const makeAlert = useSweetAlert();
 
   // Handle LogOut operation
-  const handleLogOut = () => {
-    makeAlert("Yes, Log Me Out!").then((result) => {
-      if (result.isConfirmed) {
-        logOut();
-      }
-    });
+  const handleLogOut = async () => {
+    const result = await makeAlert("Yes, Log Me Out!");
+
+    if (result.isConfirmed) {
+      logOut();
+    }
   };
 
   const fallbackPPUrl = "https://i.ibb.co/vxg6nY4/user.png";
