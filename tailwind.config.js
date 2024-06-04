@@ -32,9 +32,8 @@ export default {
             "background-color": "#2196F3",
           },
 
-          "--swiper-navigation-color": "#2196F3",
           "--swiper-pagination-color": "#2196F3",
-          "--swiper-auto-count-color": "rgb(229 231 235)",
+          "--swiper-auto-count-color": "#2196F3",
         },
       },
       {
@@ -46,9 +45,8 @@ export default {
             "background-color": "#111827",
           },
 
-          "--swiper-navigation-color": "green",
-          "--swiper-pagination-color": "green",
-          "--swiper-auto-count-color": "rgb(229 231 235)",
+          "--swiper-pagination-color": "#FFE418",
+          "--swiper-auto-count-color": "#FFE418",
         },
       },
     ],

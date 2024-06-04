@@ -1,5 +1,6 @@
 import { Tooltip } from "react-tooltip";
 import { TbListDetails } from "react-icons/tb";
+import { formatDate } from "../../../helper/helperFunction";
 
 const SingleSurveyRow = ({
   singleSurvey,
@@ -9,12 +10,6 @@ const SingleSurveyRow = ({
   handleViewDetails,
 }) => {
   const { title, category, deadline, _id } = singleSurvey;
-
-  // Function to format the date to DD/MM/YYYY
-  const formatDate = (dateString) => {
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-    return new Date(dateString).toLocaleDateString("en-GB", options);
-  };
 
   return (
     <>

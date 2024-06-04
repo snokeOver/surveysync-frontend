@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useUserSurveys from "../../../hooks/useUserSurveys";
 import Container from "../../shared/Container";
@@ -26,6 +26,7 @@ const MyCreatedSurveys = () => {
   );
   const [openModal, setOpenModal] = useState(false);
   const [currentSurvey, setCurrentSurvey] = useState({});
+  const navigate = useNavigate();
 
   const surveyCategories = [
     "Customer Satisfaction",
@@ -97,7 +98,7 @@ const MyCreatedSurveys = () => {
 
   // Hanlde the view details button
   const handleViewDetails = (id) => {
-    console.log(id);
+    navigate(`/dashboard/surveyor/survey/${id}`);
   };
 
   if (mySurveysPending) {

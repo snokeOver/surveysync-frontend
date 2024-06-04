@@ -19,6 +19,7 @@ import CreateASurvey from "../components/dashboard/surveyor/CreateASurvey";
 import MyCreatedSurveys from "../components/dashboard/surveyor/MyCreatedSurveys";
 import SurveyResponses from "../components/dashboard/surveyor/SurveyResponses";
 import SurveyFeedbackes from "../components/dashboard/surveyor/SurveyFeedbackes";
+import SurveyDetails from "../pages/SurveyDetails";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/survey-details/:id",
+        element: <SurveyDetails />,
       },
       {
         path: "/join",
