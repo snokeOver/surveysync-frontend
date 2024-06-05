@@ -15,12 +15,13 @@ const useUpdateData = () => {
       return data;
     },
     onSuccess: (data, variables) => {
-      const { itemName } = variables;
+      const { itemName, querryToInvalid } = variables;
       setToastMsg(`suc ${itemName} updated successfully !`);
       setActnBtnLoading(false);
 
       // Invalidate queries or refetch data
-      queryClient.invalidateQueries("my-surveys");
+      // queryClient.invalidateQueries("my-surveys");
+      queryClient.invalidateQueries(querryToInvalid);
     },
     onError: (data, variables) => {
       const { itemName } = variables;
@@ -29,13 +30,30 @@ const useUpdateData = () => {
     },
   });
 
-  const handleUpdateData = async (id, itemName, apiName, payload) => {
-    console.log("Receiced APIName:", apiName);
+  const handleUpdateData = async (
+    id,
+    itemName,
+    apiName,
+    payload,
+    direction = "",
+    querryToInvalid
+  ) => {
+    // console.log("Receiced APIName:", apiName);
     setActnBtnLoading(true);
     try {
-      const result = await makeAlert(`Yes, Delete this ${itemName}!`);
-      if (result.isConfirmed) {
-        await mutateAsync({ id, itemName, apiName, payload });
+      if (direction === "noSkip") {
+        const result = await makeAlert(`Yes, Update this ${itemName}!`);
+        if (result.isConfirmed) {
+          await mutateAsync({
+            id,
+            itemName,
+            apiName,
+            payload,
+            querryToInvalid,
+          });
+        }
+      } else {
+        await mutateAsync({ id, itemName, apiName, payload, querryToInvalid });
       }
     } catch (err) {
       console.log(err.message);

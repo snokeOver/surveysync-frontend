@@ -76,7 +76,15 @@ const MyCreatedSurveys = () => {
         category: values.Category,
       };
       try {
-        await updateSurvey(currentSurvey._id, "Survey", "survey", payload);
+        // id, name, apiName, payload, skipModal, querryToInvalid
+        await updateSurvey(
+          currentSurvey._id,
+          "Survey",
+          "survey",
+          payload,
+          "noSkip",
+          "my-surveys"
+        );
         setOpenModal(false);
       } catch (err) {
         console.log(err.message);
@@ -252,7 +260,7 @@ const MyCreatedSurveys = () => {
                     <DatePicker
                       className="input input-bordered flex items-center gap-2 w-full"
                       id="deadline"
-                      minDate={formik.values.Deadline}
+                      minDate={Date.now()}
                       dateFormat="dd/MM/yyyy"
                       selected={formik.values.Deadline}
                       onChange={(date) =>

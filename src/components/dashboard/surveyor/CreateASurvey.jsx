@@ -9,7 +9,6 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import useSAxios from "../../../hooks/useSAxios";
-import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useData from "../../../hooks/useData";
 import { surveyFormSchema } from "../../../helper/formValidation";
@@ -19,8 +18,7 @@ import useSweetAlert from "../../../hooks/useSweetAlert";
 const CreateASurvey = () => {
   const sAxios = useSAxios();
   const { user } = useAuth();
-  const { currTheme, setActnBtnLoading, setToastMsg } = useData();
-  const [startDate, setStartDate] = useState(new Date());
+  const { setActnBtnLoading, setToastMsg } = useData();
   const makeAlert = useSweetAlert();
 
   const surveyCategories = [
