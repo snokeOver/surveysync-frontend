@@ -1,19 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import useSAxios from "./useSAxios";
+import useAuth from "./useAuth";
 
-const useGetASurveyResponse = (uid) => {
+const useGetASurveyResponse = (id) => {
   const sAxios = useSAxios();
+  const { user } = useAuth();
+  const dummyData = {
+    userResponses: [],
+  };
   const {
-    data: surveyResponse = [],
+    data: surveyResponse = {},
     refetch: surveyResponseRefetch,
     error: surveyResponseError,
     isPending: surveyResponsePending,
   } = useQuery({
-    queryKey: ["survey-response", uid],
-    enabled: !!uid,
+    queryKey: ["survey-response"],
+    enabled: !!id && !!user,
     queryFn: async () => {
-      const { data } = await sAxios.get(`/api/survey-response/${uid}`);
-      return data.surveys;
+      const { data } = await sAxios.get(`/api/survey-response/${id}`);
+      return data.surveyResponse || dummyData;
     },
   });
   return {

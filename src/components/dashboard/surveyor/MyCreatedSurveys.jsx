@@ -15,15 +15,14 @@ import useDeleteData from "../../../hooks/useDeleteData";
 import { surveyFormSchema } from "../../../helper/formValidation";
 import { useFormik } from "formik";
 import useUpdateData from "../../../hooks/useUpdateData";
+import ButtonSpinner from "../../shared/ButtonSpinner";
 
 const MyCreatedSurveys = () => {
   const { user } = useAuth();
   const deleteSurvey = useDeleteData();
   const updateSurvey = useUpdateData();
   const { setActnBtnLoading } = useData();
-  const { mySurveys, mySurveysError, mySurveysPending } = useUserSurveys(
-    user.uid
-  );
+  const { mySurveys, mySurveysError, mySurveysPending } = useUserSurveys();
   const [openModal, setOpenModal] = useState(false);
   const [currentSurvey, setCurrentSurvey] = useState({});
   const navigate = useNavigate();
@@ -109,13 +108,6 @@ const MyCreatedSurveys = () => {
     navigate(`/dashboard/surveyor/survey/${id}`);
   };
 
-  if (mySurveysPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (mySurveysError) {
-    return <div>Error: {mySurveysError.message}</div>;
-  }
   return (
     <>
       <PageHelmet pageName="Created Surveys" />
@@ -124,74 +116,85 @@ const MyCreatedSurveys = () => {
 
         <div className=" rounded-lg bg-base-100 pb-5 md:pb-10">
           <div className="text-center flex-col">
-            <div className="text-center py-2">
-              {mySurveys.length < 1 && (
-                <>
-                  <h1 className="text-xl lg:text-4xl font-bold py-10">
-                    You didn't create any surveys yet !
-                  </h1>
-                  <div className="text-center text-lg mb-5" colSpan="6">
-                    <span className="mr-3">To create surveys</span>
-                    <span className="inline-block">
-                      <Link to="dashboard/surveyor/create">
-                        <PrimaryButton buttonText="Click Here" />
-                      </Link>
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
-            {/* heading section */}
-            <div className=" flex  items-center w-[90%] mx-auto gap-x-3 my-4">
-              <h2 className="text-lg  font-medium ">Total</h2>
+            {/* Handle error */}
+            {mySurveysError && <div>Error: {mySurveysError.message}</div>}
 
-              <span className="px-3 py-1 text-xs text-gray-900 bg-blue-100 rounded-full ">
-                {mySurveys.length}
-                <span className="ml-1"> Survey (s)</span>
-              </span>
-            </div>
-            {/* Table section */}
-            <div className="  mx-auto">
-              {mySurveys.length > 0 && (
-                <div className="card w-full  shadow-2xl bg-base-100">
-                  {/* Table for cart */}
-                  <div className="overflow-x-auto py-7  bg-base-300">
-                    <table className="table">
-                      {/* head */}
-                      <thead>
-                        <tr className="text-left text-lg">
-                          <th></th>
-                          <th>Title</th>
-                          <th>Category</th>
-                          <th>Deadline</th>
-                          <th colSpan="3" className="text-center">
-                            Actions
-                          </th>
-                        </tr>
-                        <tr>
-                          <th colSpan="7">
-                            <div className="divider -my-3"></div>
-                          </th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        {mySurveys.map((singleSurvey, index) => (
-                          <SingleSurveyRow
-                            index={index}
-                            key={singleSurvey._id}
-                            singleSurvey={singleSurvey}
-                            handleDeleteSurvey={handleDeleteSurvey}
-                            handleUpdateSurvey={handleUpdateSurvey}
-                            handleViewDetails={handleViewDetails}
-                          />
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+            {/* Handle pending time */}
+            {mySurveysPending ? (
+              <ButtonSpinner />
+            ) : (
+              <>
+                <div className="text-center py-2">
+                  {mySurveys.length < 1 && (
+                    <>
+                      <h1 className="text-xl lg:text-4xl font-bold py-10">
+                        You didn't create any surveys yet !
+                      </h1>
+                      <div className="text-center text-lg mb-5" colSpan="6">
+                        <span className="mr-3">To create surveys</span>
+                        <span className="inline-block">
+                          <Link to="dashboard/surveyor/create">
+                            <PrimaryButton buttonText="Click Here" />
+                          </Link>
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
-              )}
-            </div>
+                {/* heading section */}
+                <div className=" flex  items-center w-[90%] mx-auto gap-x-3 my-4">
+                  <h2 className="text-lg  font-medium ">Total</h2>
+
+                  <span className="px-3 py-1 text-xs text-gray-900 bg-blue-100 rounded-full ">
+                    {mySurveys.length}
+                    <span className="ml-1"> Survey (s)</span>
+                  </span>
+                </div>
+
+                {/* Table section */}
+                <div className="  mx-auto">
+                  {mySurveys.length > 0 && (
+                    <div className="card w-full  shadow-2xl bg-base-100">
+                      {/* Table for cart */}
+                      <div className="overflow-x-auto py-7  bg-base-300">
+                        <table className="table">
+                          {/* head */}
+                          <thead>
+                            <tr className="text-left text-lg">
+                              <th></th>
+                              <th>Title</th>
+                              <th>Category</th>
+                              <th>Deadline</th>
+                              <th colSpan="3" className="text-center">
+                                Actions
+                              </th>
+                            </tr>
+                            <tr>
+                              <th colSpan="7">
+                                <div className="divider -my-3"></div>
+                              </th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            {mySurveys.map((singleSurvey, index) => (
+                              <SingleSurveyRow
+                                index={index}
+                                key={singleSurvey._id}
+                                singleSurvey={singleSurvey}
+                                handleDeleteSurvey={handleDeleteSurvey}
+                                handleUpdateSurvey={handleUpdateSurvey}
+                                handleViewDetails={handleViewDetails}
+                              />
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
 

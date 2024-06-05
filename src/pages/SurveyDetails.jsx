@@ -1,7 +1,6 @@
 import { Tooltip } from "react-tooltip";
 import GoToTopBtn from "../components/shared/GoToTopBtn";
 import PageHelmet from "../components/shared/PageHelmet";
-import { goToTop } from "../helper/goToTop";
 import { useNavigate, useParams } from "react-router-dom";
 import useGetASurvey from "../hooks/useGetASurvey";
 import ButtonSpinner from "../components/shared/ButtonSpinner";
@@ -11,7 +10,6 @@ import { formatDate } from "../helper/helperFunction";
 import { BiDownvote, BiUpvote } from "react-icons/bi";
 import { SlDislike, SlLike } from "react-icons/sl";
 
-import PrimaryButton from "../components/shared/PrimaryButton";
 import { FaRegMessage } from "react-icons/fa6";
 import useUpdateData from "../hooks/useUpdateData";
 import useAuth from "../hooks/useAuth";
@@ -22,6 +20,7 @@ import useData from "../hooks/useData";
 import { proUserCommentSchema } from "../helper/formValidation";
 import useGetUsersASurveyResponse from "../hooks/useGetUsersASurveyResponse";
 import ActionButton from "../components/shared/ActionButton";
+import useGetUserRole from "../hooks/useGetUserRole";
 
 const SurveyDetails = () => {
   const { user } = useAuth(); //Update this with userInfo from useAuth
@@ -30,15 +29,20 @@ const SurveyDetails = () => {
   const makeAlert = useSweetAlert();
   const navigate = useNavigate();
   const { aSurvey, aSurveyError, aSurveyPending } = useGetASurvey(id);
+
   const {
     aUserSurveyResponse,
     aUserSurveyResponseError,
     aUserSurveyResponsePending,
-    aUserSurveyResponseRefetch,
   } = useGetUsersASurveyResponse(id);
+
+  const { userRole } = useGetUserRole();
+
   const updateSurveyResponse = useUpdateData();
 
   const [openCommentSection, setOpenCommentSection] = useState(false);
+  const [isDisableBtn, setIsDisableBtn] = useState(false);
+  const [currComment, setCurrComment] = useState("");
 
   // Handle vote update
   const handleUpdateVote = async (vote) => {
@@ -51,6 +55,7 @@ const SurveyDetails = () => {
       if (response.isConfirmed) {
         navigate("/login");
       }
+      return;
     }
 
     // Start the Update VOTE sequence
@@ -121,6 +126,14 @@ const SurveyDetails = () => {
       if (response.isConfirmed) {
         return navigate("/login");
       }
+    } else if (userRole !== "ProUser") {
+      const response = await makeAlert(
+        "Become a 'ProUser'",
+        `Only 'ProUsers' are allowed  !`
+      );
+      if (response.isConfirmed) {
+        // Open a modal to make secure payment
+      }
     } else {
       // Start the Update comment sequence
       setOpenCommentSection((currValue) => !currValue);
@@ -134,6 +147,7 @@ const SurveyDetails = () => {
   useEffect(() => {
     if (aUserSurveyResponse.comment) {
       setInitialValues({ Comment: aUserSurveyResponse.comment });
+      setCurrComment(aUserSurveyResponse.comment);
       formik.setValues({ Comment: aUserSurveyResponse.comment });
     }
   }, [aUserSurveyResponse]);
@@ -155,6 +169,7 @@ const SurveyDetails = () => {
       };
 
       try {
+        setActnBtnLoading(true);
         const result = await makeAlert("Yes, Update this comment !");
         if (result.isConfirmed) {
           // id, name, apiName, payload, skipModal, querryToInvalid
@@ -174,14 +189,27 @@ const SurveyDetails = () => {
     },
   });
 
+  // Handle if the add-comment button will be disabled or not
+  useEffect(() => {
+    if (aUserSurveyResponse.comment === currComment) {
+      setIsDisableBtn(true);
+    } else {
+      setIsDisableBtn(false);
+    }
+  }, [currComment]);
+
   return (
     <>
       <PageHelmet pageName="Survey Details" />
       <Container>
         <PageTitle title="Detailed Survey Information" />
+
+        {/* Handle error */}
         {(aSurveyError || aUserSurveyResponseError) && (
           <div>Error: {aSurveyError.message}</div>
         )}
+
+        {/* Handle pending time */}
         {aSurveyPending || aUserSurveyResponsePending ? (
           <ButtonSpinner />
         ) : (
@@ -319,6 +347,8 @@ const SurveyDetails = () => {
                             formik.setFieldTouched("Comment", true)
                           }
                           id="comment"
+                          value={currComment}
+                          onChange={(e) => setCurrComment(e.target.value)}
                           rows={6}
                           placeholder="Keep your Comment relevant and constructive . . . "
                           className="text-area-style input input-bordered h-auto placeholder-gray-400 text-sm"
@@ -331,7 +361,10 @@ const SurveyDetails = () => {
                       </div>
                     </div>
                     <div className="flex gap-10 w-[90%] md:w-[35%] mx-auto mt-8 justify-center">
-                      <ActionButton buttonText="Add Your Comment" />
+                      <ActionButton
+                        isDisable={isDisableBtn}
+                        buttonText="Add Your Comment"
+                      />
                     </div>
                   </form>
                 </>

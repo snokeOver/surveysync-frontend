@@ -11,7 +11,7 @@ const useGetASurvey = (id) => {
     error: aSurveyError,
     isPending: aSurveyPending,
   } = useQuery({
-    queryKey: ["single-survey", id],
+    queryKey: ["single-survey"],
     enabled: !!id, //allow this data when user not logged in
     queryFn: async () => {
       const { data } = await sAxios.get(`/api/single-survey/${id}`, {

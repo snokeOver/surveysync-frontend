@@ -20,6 +20,7 @@ import MyCreatedSurveys from "../components/dashboard/surveyor/MyCreatedSurveys"
 import SurveyResponses from "../components/dashboard/surveyor/SurveyResponses";
 import SurveyFeedbackes from "../components/dashboard/surveyor/SurveyFeedbackes";
 import SurveyDetails from "../pages/SurveyDetails";
+import Profile from "../pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/survey-details/:id",
@@ -79,6 +84,11 @@ const router = createBrowserRouter([
         element: <ReportedSurveys />,
       },
       {
+        path: "user/comments",
+        element: <MyComments />,
+      },
+      // Surveyor Routes
+      {
         path: "surveyor/create",
         element: <CreateASurvey />,
       },
@@ -94,10 +104,7 @@ const router = createBrowserRouter([
         path: "surveyor/survey/:id",
         element: <SurveyResponses />,
       },
-      {
-        path: "user/comments",
-        element: <MyComments />,
-      },
+      //  Admin Routes
       {
         path: "admin/users",
         element: <ManageUsers />,

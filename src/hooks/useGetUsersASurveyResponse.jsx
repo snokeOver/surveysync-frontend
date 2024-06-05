@@ -11,7 +11,7 @@ const useGetUsersASurveyResponse = (id) => {
     error: aUserSurveyResponseError,
     isPending: aUserSurveyResponsePending,
   } = useQuery({
-    queryKey: ["user-survey-response", id],
+    queryKey: ["user-survey-response"],
     enabled: !!id && !!user?.uid,
     queryFn: async () => {
       const { data } = await sAxios.get(`/api/user-survey-response/${id}`, {

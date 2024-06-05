@@ -19,8 +19,7 @@ const useUpdateData = () => {
       setToastMsg(`suc ${itemName} updated successfully !`);
       setActnBtnLoading(false);
 
-      // Invalidate queries or refetch data
-      // queryClient.invalidateQueries("my-surveys");
+      // Invalidate queries to refetch data
       queryClient.invalidateQueries(querryToInvalid);
     },
     onError: (data, variables) => {
@@ -39,7 +38,6 @@ const useUpdateData = () => {
     querryToInvalid
   ) => {
     // console.log("Receiced APIName:", apiName);
-    setActnBtnLoading(true);
     try {
       if (direction === "noSkip") {
         const result = await makeAlert(`Yes, Update this ${itemName}!`);
