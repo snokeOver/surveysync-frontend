@@ -198,7 +198,7 @@ const MyCreatedSurveys = () => {
           </div>
         </div>
 
-        {/* modal to update spot */}
+        {/* modal to update Survey */}
         <dialog
           id="spot_update_modal"
           className={`modal ${openModal ? "modal-open" : ""} `}
@@ -309,7 +309,7 @@ const MyCreatedSurveys = () => {
                   </div>
                 </div>
 
-                {/* Thord row */}
+                {/* Third row */}
                 <div className="grid grid-cols-1 gap-2 md:gap-5  w-full md:mt-3">
                   {/* Short Description part */}
                   <div className="form-control">

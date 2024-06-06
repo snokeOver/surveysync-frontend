@@ -8,6 +8,7 @@ export const surveyFormSchema = Yup.object({
   Deadline: Yup.date()
     .required("Deadline is required")
     .typeError("Invalid date"),
+  Feedback: Yup.string().required("Feedback is required"),
 });
 
 // Comment validation for pro users to add his/her comment
