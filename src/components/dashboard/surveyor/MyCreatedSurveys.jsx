@@ -118,7 +118,7 @@ const MyCreatedSurveys = () => {
       isPending={isPending}
       data={mySurveys}
       emptyDataMsg="No Feedbacks From Admin Yet!"
-      direction="dashboard/surveyor/create"
+      direction={`/dashboard/surveyor/create`}
       totalName="Survey"
     >
       {/* Table section */}

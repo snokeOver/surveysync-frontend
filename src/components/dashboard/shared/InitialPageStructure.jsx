@@ -45,7 +45,7 @@ const InitialPageStructure = ({
                             <span className="mr-3">To add {pageName}</span>
                             <span className="inline-block">
                               <Link to={direction}>
-                                <PrimaryButton buttonText="Click Here" />
+                                <PrimaryButton text="Click Here" />
                               </Link>
                             </span>
                           </div>

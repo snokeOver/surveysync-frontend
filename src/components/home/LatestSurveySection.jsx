@@ -1,4 +1,4 @@
-import useGetData from "../../hooks/useGetData";
+import useGetPublicData from "../../hooks/useGetPublicData";
 import ButtonSpinner from "../shared/ButtonSpinner";
 import Container from "../shared/Container";
 import PageTitle from "../shared/PageTitle";
@@ -9,7 +9,7 @@ const LatestSurveySection = () => {
     data: latestSurveys,
     isPending,
     error,
-  } = useGetData({ apiRoute: "recent-surveys" });
+  } = useGetPublicData({ apiRoute: "recent-surveys" });
   return (
     <Container>
       <PageTitle title="Latest Surveys" />

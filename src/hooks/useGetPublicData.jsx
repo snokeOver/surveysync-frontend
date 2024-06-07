@@ -1,11 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useSAxios from "./useSAxios";
-import useAuth from "./useAuth";
 
-const useGetData = ({ apiRoute, dataId = "" }) => {
+const useGetPublicData = ({ apiRoute, dataId = "" }) => {
   const sAxios = useSAxios();
-  const { user } = useAuth();
-
   const {
     data = [],
     refetch,
@@ -13,12 +10,8 @@ const useGetData = ({ apiRoute, dataId = "" }) => {
     isPending,
   } = useQuery({
     queryKey: [apiRoute],
-    enabled: !!user && !!user.uid,
-    retry: 3,
     queryFn: async () => {
-      const { data } = await sAxios.get(
-        `/api/${apiRoute}/${user.uid}/?dataId=${dataId}`
-      );
+      const { data } = await sAxios.get(`/api/${apiRoute}/?dataId=${dataId}`);
       return data.response;
     },
   });
@@ -30,4 +23,4 @@ const useGetData = ({ apiRoute, dataId = "" }) => {
   };
 };
 
-export default useGetData;
+export default useGetPublicData;
