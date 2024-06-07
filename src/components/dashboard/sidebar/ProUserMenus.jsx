@@ -1,13 +1,10 @@
 import DynamicNavLinks from "./DynamicNavLinks";
-import { GrLogout } from "react-icons/gr";
-import { FcSettings } from "react-icons/fc";
-import { BsFillHouseAddFill, BsFingerprint } from "react-icons/bs";
-import { GrUserAdmin } from "react-icons/gr";
-import { AiOutlineBars } from "react-icons/ai";
+
+import { FaRegMessage } from "react-icons/fa6";
 import { BsGraphUp } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
-import { MdHomeWork } from "react-icons/md";
-import { FcSurvey, FcFeedback } from "react-icons/fc";
+
+import { FcSurvey } from "react-icons/fc";
+import { TbFileReport } from "react-icons/tb";
 
 const ProUserMenus = () => {
   return (
@@ -19,25 +16,24 @@ const ProUserMenus = () => {
         icon={BsGraphUp}
       />
 
-      {/* Create a survey */}
+      {/* Participated Surveys */}
       <DynamicNavLinks
-        address="surveyor/create"
-        name="Create Survey"
+        address="user/surveys"
+        name="Participated Surveys"
         icon={FcSurvey}
       />
 
-      {/* My Surveys */}
+      {/* Reported Surveys */}
       <DynamicNavLinks
-        address="surveyor/surveys"
-        name="My Survey"
-        icon={MdHomeWork}
+        address="user/my-reports"
+        name="Reported Surveys"
+        icon={TbFileReport}
       />
-
-      {/* Admin Feedbacks */}
+      {/* Create a survey */}
       <DynamicNavLinks
-        address="surveyor/feedbacks"
-        name="Admin Feedbacks"
-        icon={FcFeedback}
+        address="user/comments"
+        name="Commented Surveys"
+        icon={FaRegMessage}
       />
     </>
   );

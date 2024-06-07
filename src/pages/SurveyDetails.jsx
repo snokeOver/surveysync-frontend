@@ -11,12 +11,13 @@ import useSweetAlert from "../hooks/useSweetAlert";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import useData from "../hooks/useData";
-import { proUserCommentSchema } from "../helper/formValidation";
 import ActionButton from "../components/shared/ActionButton";
 import useGetUserRole from "../hooks/useGetUserRole";
 import useGetData from "../hooks/useGetData";
 import InitialPageStructure from "../components/dashboard/shared/InitialPageStructure";
 import useGetPublicData from "../hooks/useGetPublicData";
+import { proUserCommentSchema } from "../helper/formValidation";
+// import from "../helper/formValidation.js"
 
 const SurveyDetails = () => {
   const { user } = useAuth(); //Update this with userInfo from useAuth
@@ -24,25 +25,28 @@ const SurveyDetails = () => {
   const { id } = useParams();
   const makeAlert = useSweetAlert();
   const navigate = useNavigate();
+
+  const {
+    data: aUserSurveyResponse,
+    isPending: aUserSurveyResponseError,
+    error: aUserSurveyResponsePending,
+  } = useGetData({
+    apiRoute: "user-survey-response",
+    dataId: id,
+    cacheTime: 0,
+  });
+
   const {
     data: aSurvey,
     isPending,
     error,
   } = useGetPublicData({ apiRoute: "single-survey", dataId: id });
 
-  const {
-    data: aUserSurveyResponse,
-    isPending: aUserSurveyResponseError,
-    error: aUserSurveyResponsePending,
-  } = useGetData({ apiRoute: "user-survey-response", dataId: id });
-
   const { userRole } = useGetUserRole();
 
   const updateSurveyResponse = useUpdateData();
 
   const [openCommentSection, setOpenCommentSection] = useState(false);
-  const [isDisableBtn, setIsDisableBtn] = useState(false);
-  const [currComment, setCurrComment] = useState("");
 
   // Handle vote(YES/NO) update
   const handleUpdateVote = async (vote) => {
@@ -165,29 +169,34 @@ const SurveyDetails = () => {
       if (response.isConfirmed) {
         return navigate("/login");
       }
-    } else if (userRole !== "ProUser") {
-      const response = await makeAlert(
-        "Become a 'ProUser'",
-        `Only 'ProUsers' are allowed  !`
-      );
-      if (response.isConfirmed) {
-        // Open a modal to make secure payment
-      }
-    } else {
+    }
+    // else if (userRole !== "ProUser") {
+    //   const response = await makeAlert(
+    //     "Become a 'ProUser'",
+    //     `Only 'ProUsers' are allowed  !`
+    //   );
+    //   if (response.isConfirmed) {
+    //     // Open a modal to make secure payment
+    //   }
+    // }
+    else {
       // Start the Update comment sequence
       setOpenCommentSection((currValue) => !currValue);
     }
   };
 
   // Initial values for the form and formik
-  const [initialValues, setInitialValues] = useState({
+  const initialValues = {
     Comment: "",
-  });
+  };
+
+  // console.log(aUserSurveyResponse.comment);
   useEffect(() => {
     if (user && aUserSurveyResponse?.comment) {
-      setInitialValues({ Comment: aUserSurveyResponse?.comment });
-      setCurrComment(aUserSurveyResponse?.comment);
-      formik.setValues({ Comment: aUserSurveyResponse?.comment });
+      formik.setValues({
+        ...formik.values,
+        Comment: aUserSurveyResponse?.comment,
+      });
     }
   }, [aUserSurveyResponse, user]);
 
@@ -228,15 +237,6 @@ const SurveyDetails = () => {
     },
   });
 
-  // Handle if the add-comment button will be disabled or not
-  useEffect(() => {
-    if (aUserSurveyResponse?.comment === currComment) {
-      setIsDisableBtn(true);
-    } else {
-      setIsDisableBtn(false);
-    }
-  }, [currComment]);
-
   return (
     <InitialPageStructure
       pageName="Survey Details"
@@ -245,6 +245,7 @@ const SurveyDetails = () => {
       isPending={isPending}
       data={aSurvey}
     >
+      {}
       <div className="md:container mx-2 bg-base-100 md:mx-auto">
         <div className="card card-compact w-full p-4">
           <div className="flex w-full flex-col lg:flex-row gap-4 border rounded-xl dark:border-gray-700 border-gray-300 p-4">
@@ -412,12 +413,11 @@ const SurveyDetails = () => {
                       {...formik.getFieldProps("Comment")}
                       onFocus={() => formik.setFieldTouched("Comment", true)}
                       id="comment"
-                      value={currComment}
-                      onChange={(e) => setCurrComment(e.target.value)}
                       rows={6}
                       placeholder="Keep your Comment relevant and constructive . . . "
                       className="text-area-style input input-bordered h-auto placeholder-gray-400 text-sm"
                     />
+
                     {formik.errors.Comment && formik.touched.Comment && (
                       <div className="text-red-500 mt-2">
                         {formik.errors.Comment}
@@ -426,10 +426,7 @@ const SurveyDetails = () => {
                   </div>
                 </div>
                 <div className="flex gap-10 w-[90%] md:w-[35%] mx-auto mt-8 justify-center">
-                  <ActionButton
-                    isDisable={isDisableBtn}
-                    buttonText="Add Your Comment"
-                  />
+                  <ActionButton buttonText="Add Your Comment" />
                 </div>
               </form>
             </>

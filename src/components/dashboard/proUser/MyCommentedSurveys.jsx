@@ -1,24 +1,24 @@
 import InitialPageStructure from "../shared/InitialPageStructure";
 import useGetData from "../../../hooks/useGetData";
-import ReportedSurveyRow from "./ReportedSurveyRow";
+import CommentedSurveyRow from "./CommentedSurveyRow";
 
-const ReportedSurveys = () => {
+const MyCommentedSurveys = () => {
   const {
     data: participatedSurveys,
     isPending,
     error,
-  } = useGetData({ apiRoute: "reported-surveys" });
+  } = useGetData({ apiRoute: "commented-surveys" });
 
   return (
     <InitialPageStructure
-      pageName="Reported Surveys"
-      pageTitle="All My Reported Surveys"
+      pageName="Commented Surveys"
+      pageTitle="All My Commented Surveys"
       error={error}
       isPending={isPending}
       data={participatedSurveys}
-      emptyDataMsg="You didn't report any survey yet!"
+      emptyDataMsg="You didn't comment on any survey yet!"
       direction={`/`}
-      totalName="Reported Survey"
+      totalName="Commented Survey"
     >
       {/* Table section */}
       <div className="  mx-auto">
@@ -32,12 +32,11 @@ const ReportedSurveys = () => {
                   <tr className="text-left text-lg">
                     <th></th>
                     <th>Title</th>
-                    <th>Category</th>
-                    <th>Report Status</th>
+                    <th>Comment</th>
                     <th>Actions</th>
                   </tr>
                   <tr>
-                    <th colSpan="5">
+                    <th colSpan="4">
                       <div className="divider -my-3"></div>
                     </th>
                   </tr>
@@ -45,7 +44,7 @@ const ReportedSurveys = () => {
 
                 <tbody>
                   {participatedSurveys.map((singleSurvey, index) => (
-                    <ReportedSurveyRow
+                    <CommentedSurveyRow
                       index={index}
                       key={singleSurvey._id}
                       singleSurvey={singleSurvey}
@@ -61,4 +60,4 @@ const ReportedSurveys = () => {
   );
 };
 
-export default ReportedSurveys;
+export default MyCommentedSurveys;

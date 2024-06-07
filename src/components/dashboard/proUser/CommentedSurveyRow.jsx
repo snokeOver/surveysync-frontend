@@ -2,24 +2,23 @@ import { Tooltip } from "react-tooltip";
 import { TbListDetails } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
-const ReportedSurveyRow = ({ singleSurvey, index }) => {
+const CommentedSurveyRow = ({ singleSurvey, index }) => {
   const navigate = useNavigate();
   const { surveyDetails, userResponse } = singleSurvey;
 
-  const reportStatus = userResponse?.reportStatus;
+  const comment = userResponse?.comment;
 
   return (
     <>
       <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
         <th>{index + 1}</th>
         <td>{surveyDetails.title}</td>
-        <td>{surveyDetails.category}</td>
 
         <td>
           <span
-            className={` bg-red-400 px-3 py-1 rounded-xl font-semibold text-gray-900`}
+            className={` bg-sky-300 px-3 py-1 rounded-xl font-semibold text-gray-900`}
           >
-            {reportStatus}
+            {comment}
           </span>
         </td>
 
@@ -44,4 +43,4 @@ const ReportedSurveyRow = ({ singleSurvey, index }) => {
   );
 };
 
-export default ReportedSurveyRow;
+export default CommentedSurveyRow;

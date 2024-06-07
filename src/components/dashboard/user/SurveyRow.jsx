@@ -6,16 +6,16 @@ import { RxCross2 } from "react-icons/rx";
 
 const SurveyRow = ({ singleSurvey, index }) => {
   const navigate = useNavigate();
-  const { surveyId, userResponses } = singleSurvey;
-  const vote = userResponses[0]?.vote;
-  const preference = userResponses[0]?.preferences;
-  const comment = userResponses[0]?.comment;
+  const { surveyDetails, userResponse } = singleSurvey;
+  const vote = userResponse?.vote;
+  const preference = userResponse?.preference;
+  const comment = userResponse?.comment;
 
   return (
     <>
       <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
         <th>{index + 1}</th>
-        <td>{surveyId.title}</td>
+        <td>{surveyDetails.title}</td>
         <td>
           <span
             className={`${
@@ -52,7 +52,7 @@ const SurveyRow = ({ singleSurvey, index }) => {
 
         <td className="details_btn_tooltip">
           <button
-            onClick={() => navigate(`/survey-details/${surveyId._id}`)}
+            onClick={() => navigate(`/survey-details/${surveyDetails._id}`)}
             className="text-gray-500 transition-colors duration-200   hover:text-primary focus:outline-none"
           >
             <TbListDetails className="text-xl" />

@@ -11,7 +11,6 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ParticipatedSurveys from "../components/dashboard/user/ParticipatedSurveys";
 import ReportedSurveys from "../components/dashboard/user/ReportedSurveys";
-import MyComments from "../components/dashboard/proUser/MyComments";
 import ManageUsers from "../components/dashboard/admin/ManageUsers";
 import ManageSurveys from "../components/dashboard/admin/ManageSurveys";
 import ViewAllPayments from "../components/dashboard/admin/ViewAllPayments";
@@ -21,6 +20,7 @@ import SurveyResponses from "../components/dashboard/surveyor/SurveyResponses";
 import SurveyFeedbackes from "../components/dashboard/surveyor/SurveyFeedbackes";
 import SurveyDetails from "../pages/SurveyDetails";
 import Profile from "../pages/Profile";
+import MyCommentedSurveys from "../components/dashboard/proUser/MyCommentedSurveys";
 
 const router = createBrowserRouter([
   {
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
       },
       {
         path: "user/comments",
-        element: <MyComments />,
+        element: <MyCommentedSurveys />,
       },
       // Surveyor Routes
       {
