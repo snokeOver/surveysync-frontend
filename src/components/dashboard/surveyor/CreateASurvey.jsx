@@ -18,19 +18,8 @@ import useSweetAlert from "../../../hooks/useSweetAlert";
 const CreateASurvey = () => {
   const sAxios = useSAxios();
   const { user } = useAuth();
-  const { setActnBtnLoading, setToastMsg } = useData();
+  const { setActnBtnLoading, setToastMsg, surveyCategories } = useData();
   const makeAlert = useSweetAlert();
-
-  const surveyCategories = [
-    "Customer Satisfaction",
-    "Employee Engagement",
-    "Market Research",
-    "Product Feedback",
-    "Event Feedback",
-    "Brand Awareness",
-    "User Experience",
-    "Service Quality",
-  ];
 
   // Initial values for the form and formik
   const initialValues = {

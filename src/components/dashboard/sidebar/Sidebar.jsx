@@ -12,7 +12,7 @@ import useGetUserRole from "../../../hooks/useGetUserRole";
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
   const { userDetails } = useAuth();
-  const userRole = "ProUser";
+  const userRole = "Admin";
   // const { userRole } = useGetUserRole();
 
   // Sidebar Responsive Handler

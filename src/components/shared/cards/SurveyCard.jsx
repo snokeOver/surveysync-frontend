@@ -1,20 +1,11 @@
 import { BsFillEyeFill } from "react-icons/bs";
-
 import { GiVote } from "react-icons/gi";
-import { PiUsersFour } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { SlLike } from "react-icons/sl";
 
 const SurveyCard = ({ survey }) => {
   const navigate = useNavigate();
-  const {
-    _id,
-    title,
-    description,
-    yesCount,
-    noCount,
-    likeCount,
-    disLikeCount,
-  } = survey;
+  const { _id, title, description, yesCount, noCount, likeCount } = survey;
 
   const wordLimit = 15;
 
@@ -49,23 +40,21 @@ const SurveyCard = ({ survey }) => {
           {/* Total Vote part */}
           <div className="flex gap-2 py-2 items-center flex-col border rounded-md dark:border-gray-700 border-gray-200 ">
             <GiVote className="text-3xl" />
-            <h2 className="font-extrabold text-lg">Vote:</h2>
+            <h2 className="font-extrabold text-lg">Vote</h2>
             <h4 className="text-primary text-lg">{yesCount + noCount}</h4>
           </div>
 
           {/* Total Vote part */}
           <div className="flex gap-2 py-2 items-center flex-col border rounded-md dark:border-gray-700 border-gray-200 ">
-            <PiUsersFour className="text-3xl" />
-            <h2 className="font-extrabold text-lg">Participants</h2>
-            <h4 className="text-primary text-lg">
-              {yesCount + noCount + likeCount + disLikeCount}
-            </h4>
+            <SlLike className="text-3xl" />
+            <h2 className="font-extrabold text-lg">Like</h2>
+            <h4 className="text-primary text-lg">{likeCount}</h4>
           </div>
         </div>
 
         <div className="card-actions justify-end mt-auto">
           <button
-            onClick={() => navigate(`survey-details/${_id}`)}
+            onClick={() => navigate(`/survey-details/${_id}`)}
             className="btn btn-primary btn-outline py-1 my-3 rounded-md w-full flex items-center justify-center"
           >
             <BsFillEyeFill className="text-xl" />

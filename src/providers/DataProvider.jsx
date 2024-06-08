@@ -51,6 +51,17 @@ const DataProvider = ({ children }) => {
     },
   ];
 
+  const surveyCategories = [
+    "Customer Satisfaction",
+    "Employee Engagement",
+    "Market Research",
+    "Product Feedback",
+    "Event Feedback",
+    "Brand Awareness",
+    "User Experience",
+    "Service Quality",
+  ];
+
   const dataItems = {
     currTheme,
     setCurrTheme,
@@ -67,6 +78,7 @@ const DataProvider = ({ children }) => {
     setGBtnLoading,
     setGitBtnLoading,
     setActnBtnLoading,
+    surveyCategories,
   };
 
   return (

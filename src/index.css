@@ -93,3 +93,22 @@ img {
   :where(thead tr, tbody tr:not(:last-child), tbody tr:first-child:last-child) {
   border-bottom-width: 0px;
 }
+
+/* Custom styles for input at search btn */
+.search-input {
+  height: 2.5rem;
+}
+
+/* Custom style for sorting menu */
+.sorting-menu {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Custom css for category and sorted at search bar in surveys page */
+
+.category-select,
+.sorted-select {
+  min-height: 2.5rem;
+  height: 2.5rem;
+}
