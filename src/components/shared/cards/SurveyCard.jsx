@@ -28,7 +28,7 @@ const SurveyCard = ({ survey }) => {
   };
 
   return (
-    <div className="card card-compact bg-base-100 rounded-xl border dark:border-gray-500 border-gray-300 shadow-xl">
+    <div className="card card-compact bg-base-100 rounded-xl border dark:border-gray-500 border-gray-300 shadow-xl hover:scale-105 duration-500">
       <div className="card-body">
         <div className=" flex-grow">
           <h2 className="card-title text-lg text-primary ">{title}</h2>

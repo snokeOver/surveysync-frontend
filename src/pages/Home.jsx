@@ -1,4 +1,7 @@
 import Banner from "../components/home/Banner";
+import FAQSection from "../components/home/FAQSection";
+import FeaturedSurveySection from "../components/home/FeaturedSurveySection";
+import HowItWorks from "../components/home/HowItWorks";
 import LatestSurveySection from "../components/home/LatestSurveySection";
 import GoToTopBtn from "../components/shared/GoToTopBtn";
 import PageHelmet from "../components/shared/PageHelmet";
@@ -13,12 +16,13 @@ const Home = () => {
         <Banner />
         <div className="md:container mx-auto">
           <LatestSurveySection />
-        </div>
-        {/* <WhatMakeUsDifferent />
 
-        <div className="md:container mx-auto">
-          <AwardSection />
-        </div> */}
+          <HowItWorks />
+
+          <FeaturedSurveySection />
+
+          <FAQSection />
+        </div>
       </div>
       <GoToTopBtn />
     </>

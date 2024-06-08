@@ -33,7 +33,6 @@ const SurveyDetails = () => {
   } = useGetData({
     apiRoute: "user-survey-response",
     dataId: id,
-    cacheTime: 0,
   });
 
   const {
@@ -260,10 +259,10 @@ const SurveyDetails = () => {
               {/* Description part */}
 
               <div className="my-4">
-                <span className="font-extrabold text-lg mr-2">
+                <h2 className="font-extrabold text-left text-lg">
                   Description:
-                </span>
-                <br />
+                </h2>
+
                 <p className="text-justify">{aSurvey?.description}</p>
               </div>
 
