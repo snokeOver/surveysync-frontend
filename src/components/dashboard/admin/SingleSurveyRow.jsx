@@ -1,5 +1,5 @@
 import { Tooltip } from "react-tooltip";
-import { formatDate, formatDateTime } from "../../../helper/helperFunction";
+import { formatDateTime } from "../../../helper/helperFunction";
 const SingleSurveyRow = ({
   singleSurvey,
   index,
@@ -9,7 +9,7 @@ const SingleSurveyRow = ({
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-105 duration-500">
         <th>{index + 1}</th>
         <td>{title}</td>
         <td>{category}</td>

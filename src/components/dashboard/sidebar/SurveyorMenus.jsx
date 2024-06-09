@@ -23,7 +23,7 @@ const SurveyorMenus = () => {
       {/* My Surveys */}
       <DynamicNavLinks
         address="surveyor/surveys"
-        name="My Survey"
+        name="My Survey(s)"
         icon={MdHomeWork}
       />
 

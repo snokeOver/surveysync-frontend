@@ -13,7 +13,7 @@ const SingleSurveyRow = ({
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-95 duration-500">
         <th>{index + 1}</th>
         <td className={`my_tooltip_${index}`}>{title}</td>
         <td>{category}</td>
@@ -99,7 +99,7 @@ const SingleSurveyRow = ({
         className="z-50"
         variant="info"
       >
-        <p>View Details</p>
+        <p>View Responses</p>
       </Tooltip>
     </>
   );

@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import PaginationBtns from "../components/shared/pagination/PaginationBtns";
 import useData from "../hooks/useData";
 import { FaRegArrowAltCircleUp, FaRegArrowAltCircleDown } from "react-icons/fa";
+import TableViewStructure from "../components/dashboard/shared/TableViewStructure";
+import SingleSurveyRow from "../components/dashboard/surveyor/SingleSurveyRow";
+import SurveyTableRow from "../components/surveys/SurveyTableRow";
 
 const Surveys = () => {
   const { surveyCategories } = useData();
@@ -88,8 +91,6 @@ const Surveys = () => {
 
   // Refetch data when currentPage or itemsPerPage changes
   useEffect(() => {
-    //  totalDataNumber();
-
     refetchValidSurveys();
   }, [currentPage, itemsPerPage, search, currSort, currCategory]);
 
@@ -105,7 +106,7 @@ const Surveys = () => {
     >
       {/* navigation bar */}
 
-      <div className="flex items-center flex-col lg:flex-row gap-10 justify-between min-h-0 bg-blue-200 dark:bg-gray-800 rounded-lg w-[98%] lg:w-[90%] mx-auto py-5 lg:py-2 px-5">
+      <div className="flex items-center flex-col xl:flex-row gap-4 md:gap-10 justify-between min-h-0 bg-blue-200 dark:bg-gray-800 rounded-lg w-[98%] lg:w-[90%] mx-auto py-5 lg:py-2 px-5">
         {/* start part */}
         <div className="flex flex-1 w-full">
           <div className="flex gap-5 justify-between items-center w-full">
@@ -135,8 +136,8 @@ const Surveys = () => {
         </div>
 
         {/* End part */}
-        <div className="flex items-center gap-10 flex-1 w-full lg:justify-end">
-          {/* Filter Part */}
+        <div className="flex items-center gap-3 md:gap-10 flex-1 flex-col md:flex-row w-full lg:justify-end">
+          {/* Category Part */}
           <div className="flex flex-col lg:flex-row w-full">
             <div className="form-control min-w-44">
               <select
@@ -198,13 +199,34 @@ const Surveys = () => {
           </div>
         </div>
       </div>
-
-      {/* Card View Data */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 px-5 group mt-2 md:mt-10">
-        {validSurveys[0]?.map((survey) => (
-          <SurveyCard key={survey._id} survey={survey} />
-        ))}
-      </div>
+      {!layoutSelect ? (
+        <>
+          {/* Card View Data */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 px-5 group mt-2 md:mt-10">
+            {validSurveys[0]?.map((survey) => (
+              <SurveyCard key={survey._id} survey={survey} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="mt-10">
+          {/* Table view */}
+          <TableViewStructure
+            data={validSurveys[0] || []}
+            tabCols={["Title", "Description", "Deadline", "Votes", "Likes"]}
+            actionBtnNumbers={1}
+          >
+            {validSurveys[0] &&
+              validSurveys[0].map((singleSurvey, index) => (
+                <SurveyTableRow
+                  index={index}
+                  key={singleSurvey._id}
+                  singleSurvey={singleSurvey}
+                />
+              ))}
+          </TableViewStructure>
+        </div>
+      )}
 
       {/* Pagination Buttons */}
       <PaginationBtns

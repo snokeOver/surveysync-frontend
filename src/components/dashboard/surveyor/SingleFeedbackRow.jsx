@@ -7,7 +7,7 @@ const SingleFeedbackRow = ({ singleFeedback, index, handleShowFeedbacks }) => {
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-95 duration-500">
         <th>{index + 1}</th>
         <td>{surveyId.title}</td>
         <td>{formatDateTime(updatedAt)}</td>

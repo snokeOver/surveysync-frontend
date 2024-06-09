@@ -4,8 +4,13 @@ import { useState } from "react";
 import ActionButton from "../../shared/ActionButton";
 import useGetData from "../../../hooks/useGetData";
 import InitialPageStructure from "../shared/InitialPageStructure";
+import TableViewStructure from "../shared/TableViewStructure";
+import useAuth from "../../../hooks/useAuth";
+import useData from "../../../hooks/useData";
 
 const SurveyResponses = () => {
+  const { user } = useAuth();
+  const { setToastMsg } = useData();
   const {
     data: allUsers,
     isPending,
@@ -14,31 +19,38 @@ const SurveyResponses = () => {
 
   const updateUserRole = useUpdateData();
 
-  const [currRole, setCurrRole] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [currUserName, setCurrUserName] = useState("");
-  const [currUserId, setCurrUserId] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
+  const [currRole, setCurrRole] = useState("");
 
   // handle the Update initiation
-  const handleUpdateRoleInitiate = (id, role, name) => {
-    setCurrRole(role);
-    setCurrUserName(name);
-    setCurrUserId(id);
+  const handleUpdateRoleInitiate = (currUser) => {
+    if (user.uid === currUser.userId) {
+      return setToastMsg("err This Action Not Permitted !");
+    }
+    setCurrRole(currUser.userRole);
+    setCurrentUser(currUser);
     setOpenModal(true);
   };
 
   // handle Update user role
   const handleUpdateUserRole = async () => {
-    const payload = { userRole: currRole };
+    if (currRole === currentUser.userRole) {
+      return setToastMsg(`err User is already '${currRole}' !`);
+    }
+
+    const payload = { userRole: currentUser.userRole };
 
     await updateUserRole(
-      currUserId,
+      currentUser._id,
       "Role",
       "update-user-role",
       payload,
       "noSkip",
       "all-users"
     );
+    setCurrRole(currentUser.userRole);
+    setCurrentUser({});
   };
 
   return (
@@ -47,49 +59,26 @@ const SurveyResponses = () => {
       pageTitle="All registered user"
       error={error}
       isPending={isPending}
-      data={allUsers}
+      data={allUsers || []}
       emptyDataMsg="No Users Registered Yet!"
       totalName="User"
     >
       {/* Table section */}
-      <div className="  mx-auto">
-        {allUsers.length > 0 && (
-          <div className="card w-full  shadow-2xl bg-base-100">
-            {/* Table for cart */}
-            <div className="overflow-x-auto py-7  bg-base-300">
-              <table className="table">
-                {/* head */}
-                <thead>
-                  <tr className="text-left text-lg">
-                    <th>#</th>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Id</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                  </tr>
-                  <tr>
-                    <th colSpan="6">
-                      <div className="divider -my-3"></div>
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {allUsers.map((singleUser, index) => (
-                    <SingleUserRow
-                      index={index}
-                      key={singleUser._id}
-                      singleUser={singleUser}
-                      handleUpdateRoleInitiate={handleUpdateRoleInitiate}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-      </div>
+      <TableViewStructure
+        data={allUsers || []}
+        tabCols={["Email", "Name", "User ID", "Role"]}
+        actionBtnNumbers={1}
+      >
+        {allUsers &&
+          allUsers.map((singleUser, index) => (
+            <SingleUserRow
+              index={index}
+              key={singleUser._id}
+              singleUser={singleUser}
+              handleUpdateRoleInitiate={handleUpdateRoleInitiate}
+            />
+          ))}
+      </TableViewStructure>
 
       {/* modal to update User Role */}
       <dialog className={`modal ${openModal ? "modal-open" : ""} `}>
@@ -107,15 +96,20 @@ const SurveyResponses = () => {
             <h2 className="text-2xl text-center font-semibold mb-5 flex flex-col gap-3">
               <span>Update This User Role:</span>
               <span className="text-primary ml-3">
-                {currUserName || currUserId}
+                {currentUser.name || currentUser.userId}
               </span>
             </h2>
           </div>
           <div className="w-[80%] xl:w-[70%] mx-auto mt-10">
             <div className="flex justify-center">
               <select
-                value={currRole}
-                onChange={(e) => setCurrRole(e.target.value)}
+                value={currentUser.currRole}
+                onChange={(e) =>
+                  setCurrentUser((prevData) => ({
+                    ...prevData,
+                    userRole: e.target.value,
+                  }))
+                }
                 className="select select-bordered w-full max-w-xs"
               >
                 <option value="" disabled>

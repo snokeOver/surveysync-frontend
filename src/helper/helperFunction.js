@@ -36,4 +36,13 @@ const formatDateTime = (dateString) => {
   return `${formattedDate}, ${formattedTime}`;
 };
 
-export { formatDate, formatDateTime };
+// Trancate the description
+const truncateDescription = (description, wordLimit = 15) => {
+  const words = description.split(" ");
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(" ") + " . . . ";
+  }
+  return description;
+};
+
+export { formatDate, formatDateTime, truncateDescription };

@@ -14,6 +14,7 @@ import DatePicker from "react-datepicker";
 import { FaLock } from "react-icons/fa";
 import useGetData from "../../../hooks/useGetData";
 import InitialPageStructure from "../shared/InitialPageStructure";
+import TableViewStructure from "../shared/TableViewStructure";
 
 const ManageSurveys = () => {
   const {
@@ -98,49 +99,26 @@ const ManageSurveys = () => {
       pageTitle="All Published & Unpublished Surveys"
       error={error}
       isPending={isPending}
-      data={allSurveys}
+      data={allSurveys || []}
       emptyDataMsg="No Surveys To Show!"
       totalName="Survey"
     >
       {/* Table section */}
-      <div className="  mx-auto">
-        {allSurveys.length > 0 && (
-          <div className="card w-full  shadow-2xl bg-base-100">
-            {/* Table for cart */}
-            <div className="overflow-x-auto py-7  bg-base-300">
-              <table className="table">
-                {/* head */}
-                <thead>
-                  <tr className="text-left text-lg">
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Last Updated</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                  <tr>
-                    <th colSpan="6">
-                      <div className="divider -my-3"></div>
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {allSurveys.map((singleSurvey, index) => (
-                    <SingleSurveyRow
-                      index={index}
-                      key={singleSurvey._id}
-                      singleSurvey={singleSurvey}
-                      surveyStatusUpdateInitiate={surveyStatusUpdateInitiate}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-      </div>
+      <TableViewStructure
+        data={allSurveys || []}
+        tabCols={["Title", "Category", "Last Updated", "Status"]}
+        actionBtnNumbers={1}
+      >
+        {allSurveys &&
+          allSurveys.map((singleSurvey, index) => (
+            <SingleSurveyRow
+              index={index}
+              key={singleSurvey._id}
+              singleSurvey={singleSurvey}
+              surveyStatusUpdateInitiate={surveyStatusUpdateInitiate}
+            />
+          ))}
+      </TableViewStructure>
 
       {/* modal to update Survey status */}
       <dialog

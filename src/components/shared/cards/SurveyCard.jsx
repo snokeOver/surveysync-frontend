@@ -2,21 +2,16 @@ import { BsFillEyeFill } from "react-icons/bs";
 import { GiVote } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { SlLike } from "react-icons/sl";
+import {
+  formatDate,
+  formatDateTime,
+  truncateDescription,
+} from "../../../helper/helperFunction";
 
 const SurveyCard = ({ survey }) => {
   const navigate = useNavigate();
-  const { _id, title, description, yesCount, noCount, likeCount } = survey;
-
-  const wordLimit = 15;
-
-  // Trancate the description
-  const truncateDescription = (description, wordLimit) => {
-    const words = description.split(" ");
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + " . . . ";
-    }
-    return description;
-  };
+  const { _id, title, description, yesCount, noCount, likeCount, deadline } =
+    survey;
 
   return (
     <div className="card card-compact bg-base-100 rounded-xl border dark:border-gray-500 border-gray-300 shadow-xl hover:scale-105 duration-500">
@@ -26,14 +21,21 @@ const SurveyCard = ({ survey }) => {
         </div>
         <div className="">
           <p className="text-justify">
-            {truncateDescription(description, wordLimit)}
+            {truncateDescription(description, 15)}
             <button
-              onClick={() => navigate(`survey-details/${_id}`)}
-              className="px-2 border rounded-lg text-xs border-primary  hover:bg-primary hover:text-gray-900"
+              onClick={() => navigate(`/survey-details/${_id}`)}
+              className="px-2 text-sky-600 text-xs rounded-lg hover:bg-primary hover:text-gray-900"
             >
               Show Details
             </button>
           </p>
+        </div>
+
+        <div className="w-full flex justify-center gap-2 text-sm mt-2">
+          <h4 className="">Deadline:</h4>
+          <h4 className=" rounded-lg px-2 border border-primary w-fit">
+            {formatDate(deadline)}
+          </h4>
         </div>
 
         <div className="grid grid-cols-2 gap-3 my-5">

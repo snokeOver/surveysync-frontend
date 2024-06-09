@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import useUpdateData from "../../../hooks/useUpdateData";
 import InitialPageStructure from "../shared/InitialPageStructure";
 import useGetData from "../../../hooks/useGetData";
+import TableViewStructure from "../shared/TableViewStructure";
 
 const MyCreatedSurveys = () => {
   const { user } = useAuth();
@@ -122,47 +123,23 @@ const MyCreatedSurveys = () => {
       totalName="Survey"
     >
       {/* Table section */}
-      <div className="  mx-auto">
-        {mySurveys.length > 0 && (
-          <div className="card w-full  shadow-2xl bg-base-100">
-            {/* Table for cart */}
-            <div className="overflow-x-auto py-7  bg-base-300">
-              <table className="table">
-                {/* head */}
-                <thead>
-                  <tr className="text-left text-lg">
-                    <th></th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Deadline</th>
-                    <th colSpan="3" className="text-center">
-                      Actions
-                    </th>
-                  </tr>
-                  <tr>
-                    <th colSpan="7">
-                      <div className="divider -my-3"></div>
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {mySurveys.map((singleSurvey, index) => (
-                    <SingleSurveyRow
-                      index={index}
-                      key={singleSurvey._id}
-                      singleSurvey={singleSurvey}
-                      handleDeleteSurvey={handleDeleteSurvey}
-                      handleUpdateSurvey={handleUpdateSurvey}
-                      handleViewDetails={handleViewDetails}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-      </div>
+      <TableViewStructure
+        data={mySurveys || []}
+        tabCols={["Title", "Category", "Deadline"]}
+        actionBtnNumbers={3}
+      >
+        {mySurveys &&
+          mySurveys.map((singleSurvey, index) => (
+            <SingleSurveyRow
+              index={index}
+              key={singleSurvey._id}
+              singleSurvey={singleSurvey}
+              handleDeleteSurvey={handleDeleteSurvey}
+              handleUpdateSurvey={handleUpdateSurvey}
+              handleViewDetails={handleViewDetails}
+            />
+          ))}
+      </TableViewStructure>
 
       {/* modal to update Survey */}
       <dialog

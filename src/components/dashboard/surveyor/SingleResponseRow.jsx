@@ -1,11 +1,12 @@
 import { FaCheck } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 const SingleResponseRow = ({ singleResponse, index }) => {
-  const { name, email, vote, preference, comment } = singleResponse;
+  const { name, email, vote, preference, comment, reportStatus } =
+    singleResponse;
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-95 duration-500">
         <th>{index + 1}</th>
         <td className={`my_tooltip_${index}`}>{email}</td>
         <td>{name}</td>
@@ -41,6 +42,17 @@ const SingleResponseRow = ({ singleResponse, index }) => {
           ) : (
             <RxCross2 className="text-red-400 text-2xl" />
           )}
+        </td>
+        <td>
+          <span
+            className={`${
+              !reportStatus || reportStatus === "NotReported"
+                ? "bg-green-400"
+                : "bg-red-400"
+            } px-3 py-1 rounded-xl font-semibold text-gray-900`}
+          >
+            {reportStatus || "Not Reported"}
+          </span>
         </td>
       </tr>
     </>

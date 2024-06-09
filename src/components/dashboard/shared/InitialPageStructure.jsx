@@ -61,8 +61,10 @@ const InitialPageStructure = ({
                     <div className=" flex  items-center w-[90%] mx-auto gap-x-3 my-4">
                       <h2 className="text-lg  font-medium ">Total</h2>
 
-                      <span className="px-3 py-1 text-xs text-gray-900 bg-blue-100 rounded-full ">
-                        {data.length}
+                      <span className="px-3 py-1 text-xs text-gray-900 bg-blue-100 rounded-xl">
+                        <span className="rounded-full border border-sky-400 font-semibold text-md px-1 bg-sky-400">
+                          {data.length}
+                        </span>
                         <span className="ml-1"> {totalName} (s)</span>
                       </span>
                     </div>

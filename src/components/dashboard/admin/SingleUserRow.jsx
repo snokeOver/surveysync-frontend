@@ -4,7 +4,7 @@ const SingleUserRow = ({ singleUser, index, handleUpdateRoleInitiate }) => {
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-105 duration-500">
         <th>{index + 1}</th>
         <td className={`my_tooltip_${index}`}>{email}</td>
         <td>{name}</td>
@@ -26,7 +26,7 @@ const SingleUserRow = ({ singleUser, index, handleUpdateRoleInitiate }) => {
         </td>
         <td className="update_btn_tooltip">
           <button
-            onClick={() => handleUpdateRoleInitiate(_id, userRole, name)}
+            onClick={() => handleUpdateRoleInitiate(singleUser)}
             className="text-gray-500 transition-colors duration-200   hover:text-primary focus:outline-none"
           >
             <svg

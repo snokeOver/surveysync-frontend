@@ -3,6 +3,7 @@ import SingleFeedbackRow from "./SingleFeedbackRow";
 import SingleFeedback from "./SingleFeedback";
 import InitialPageStructure from "../shared/InitialPageStructure";
 import useGetData from "../../../hooks/useGetData";
+import TableViewStructure from "../shared/TableViewStructure";
 
 const SurveyFeedbackes = () => {
   const {
@@ -30,44 +31,21 @@ const SurveyFeedbackes = () => {
       totalName="Feedback"
     >
       {/* Table section */}
-      <div className="  mx-auto">
-        {adminFeedbacks.length > 0 && (
-          <div className="card w-full  shadow-2xl bg-base-100">
-            {/* Table for cart */}
-            <div className="overflow-x-auto py-7  bg-base-300">
-              <table className="table">
-                {/* head */}
-                <thead>
-                  <tr className="text-left text-lg">
-                    <th></th>
-                    <th>Survey Title</th>
-                    <th>Last Updated</th>
-                    <th>Feedbacks</th>
-                    <th>Current Status</th>
-                    <th>Actions</th>
-                  </tr>
-                  <tr>
-                    <th colSpan="6">
-                      <div className="divider -my-3"></div>
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {adminFeedbacks.map((singleFeedback, index) => (
-                    <SingleFeedbackRow
-                      index={index}
-                      key={singleFeedback._id}
-                      singleFeedback={singleFeedback}
-                      handleShowFeedbacks={handleShowFeedbacks}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-      </div>
+      <TableViewStructure
+        data={adminFeedbacks || []}
+        tabCols={["Title", "Last Updated", "Feedbacks", "Current Status"]}
+        actionBtnNumbers={1}
+      >
+        {adminFeedbacks.length > 0 &&
+          adminFeedbacks.map((singleFeedback, index) => (
+            <SingleFeedbackRow
+              index={index}
+              key={singleFeedback._id}
+              singleFeedback={singleFeedback}
+              handleShowFeedbacks={handleShowFeedbacks}
+            />
+          ))}
+      </TableViewStructure>
 
       {/* modal to update Survey */}
       <dialog

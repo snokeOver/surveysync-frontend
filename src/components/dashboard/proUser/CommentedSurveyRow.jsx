@@ -10,16 +10,16 @@ const CommentedSurveyRow = ({ singleSurvey, index }) => {
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-105 duration-500">
         <th>{index + 1}</th>
         <td>{surveyDetails.title}</td>
 
         <td>
-          <span
-            className={` bg-sky-300 px-3 py-1 rounded-xl font-semibold text-gray-900`}
+          <div
+            className={` bg-sky-300 px-3 py-1 rounded-xl font-semibold text-gray-900 inline-block`}
           >
             {comment}
-          </span>
+          </div>
         </td>
 
         <td className="details_btn_tooltip">
