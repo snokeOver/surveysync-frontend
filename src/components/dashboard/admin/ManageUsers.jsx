@@ -34,15 +34,19 @@ const SurveyResponses = () => {
   };
 
   // handle Update user role
-  const handleUpdateUserRole = async () => {
-    if (currRole === currentUser.userRole) {
+  const handleUpdateUserRole = async (id = "", approve = "No") => {
+    if (currentUser && currRole && currentUser.userRole === currRole) {
       return setToastMsg(`err User is already '${currRole}' !`);
     }
-
-    const payload = { userRole: currentUser.userRole };
+    let payload = {};
+    if (approve === "YES") {
+      payload = { userRole: "Surveyor", userRequest: "Approved" };
+    } else {
+      payload = { userRole: currentUser.userRole };
+    }
 
     await updateUserRole(
-      currentUser._id,
+      currentUser._id || id,
       "Role",
       "update-user-role",
       payload,
@@ -66,8 +70,8 @@ const SurveyResponses = () => {
       {/* Table section */}
       <TableViewStructure
         data={allUsers || []}
-        tabCols={["Email", "Name", "User ID", "Role"]}
-        actionBtnNumbers={1}
+        tabCols={["Email", "Name", "User ID", "Role", "Status"]}
+        actionBtnNumbers={2}
       >
         {allUsers &&
           allUsers.map((singleUser, index) => (
@@ -76,6 +80,7 @@ const SurveyResponses = () => {
               key={singleUser._id}
               singleUser={singleUser}
               handleUpdateRoleInitiate={handleUpdateRoleInitiate}
+              handleUpdateUserRole={handleUpdateUserRole}
             />
           ))}
       </TableViewStructure>
@@ -123,7 +128,7 @@ const SurveyResponses = () => {
             </div>
 
             <div
-              onClick={handleUpdateUserRole}
+              onClick={() => handleUpdateUserRole("NO")}
               className="form-control mt-16 mb-5  mx-auto"
             >
               <ActionButton buttonText="Update User Role" />

@@ -9,13 +9,13 @@ const SingleSurveyRow = ({
   handleUpdateSurvey,
   handleViewDetails,
 }) => {
-  const { title, category, deadline, _id } = singleSurvey;
+  const { title, category, deadline, _id, totalResponse } = singleSurvey;
 
   return (
     <>
       <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-95 duration-500">
         <th>{index + 1}</th>
-        <td className={`my_tooltip_${index}`}>{title}</td>
+        <td>{title}</td>
         <td>{category}</td>
         <td>
           {new Date(deadline).setHours(0, 0, 0, 0) >=
@@ -24,6 +24,15 @@ const SingleSurveyRow = ({
           ) : (
             <p className="text-yellow-500">Expired</p>
           )}
+        </td>
+        <td>
+          <span
+            className={`${
+              totalResponse > 0 ? "bg-sky-400 text-gray-900" : ""
+            } font-bold text-lg px-4 rounded-xl`}
+          >
+            {totalResponse}
+          </span>
         </td>
         <td className="delete_btn_tooltip">
           <button

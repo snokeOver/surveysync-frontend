@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import useData from "../hooks/useData";
 import ActionButton from "../components/shared/ActionButton";
-import useGetUserRole from "../hooks/useGetUserRole";
+
 import useGetData from "../hooks/useGetData";
 import InitialPageStructure from "../components/dashboard/shared/InitialPageStructure";
 import useGetPublicData from "../hooks/useGetPublicData";
@@ -41,8 +41,6 @@ const SurveyDetails = () => {
     isPending,
     error,
   } = useGetPublicData({ apiRoute: "single-survey", dataId: id });
-
-  const { userRole } = useGetUserRole();
 
   const updateSurveyResponse = useUpdateData();
 

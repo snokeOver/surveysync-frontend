@@ -22,6 +22,7 @@ import SurveyDetails from "../pages/SurveyDetails";
 import Profile from "../pages/Profile";
 import MyCommentedSurveys from "../components/dashboard/proUser/MyCommentedSurveys";
 import Surveys from "../pages/Surveys";
+import RequestForSurveyor from "../components/dashboard/user/RequestForSurveyor";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "user/surveys",
         element: <ParticipatedSurveys />,
+      },
+      {
+        path: "user/request",
+        element: <RequestForSurveyor />,
       },
       {
         path: "user/my-reports",

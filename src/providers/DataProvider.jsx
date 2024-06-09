@@ -11,6 +11,7 @@ const DataProvider = ({ children }) => {
   const [actnBtnLoading, setActnBtnLoading] = useState(false);
 
   const defaultTheme = "dark";
+
   const [currTheme, setCurrTheme] = useState(defaultTheme);
   const [toastMsg, setToastMsg] = useState("");
   const bannerImages = [

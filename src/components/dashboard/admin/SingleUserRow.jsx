@@ -1,10 +1,15 @@
 import { Tooltip } from "react-tooltip";
-const SingleUserRow = ({ singleUser, index, handleUpdateRoleInitiate }) => {
-  const { name, email, _id, userRole } = singleUser;
+const SingleUserRow = ({
+  singleUser,
+  index,
+  handleUpdateRoleInitiate,
+  handleUpdateUserRole,
+}) => {
+  const { name, email, _id, userRole, userRequest } = singleUser;
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-105 duration-500">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-[1.02] duration-500">
         <th>{index + 1}</th>
         <td className={`my_tooltip_${index}`}>{email}</td>
         <td>{name}</td>
@@ -13,15 +18,36 @@ const SingleUserRow = ({ singleUser, index, handleUpdateRoleInitiate }) => {
           <span
             className={`${
               userRole === "Admin"
-                ? "bg-sky-400"
-                : userRole === "Surveyor"
                 ? "bg-yellow-400"
+                : userRole === "Surveyor"
+                ? "bg-sky-400"
                 : userRole === "ProUser"
                 ? "bg-green-400"
                 : "bg-gray-300"
             } px-3 py-1 rounded-xl font-semibold text-gray-900`}
           >
             {userRole}
+          </span>
+        </td>
+        <td>
+          <span
+            className={`${
+              userRequest === "Requested"
+                ? "bg-sky-400"
+                : userRequest === "Accepted" ||
+                  userRole === "Surveyor" ||
+                  userRole === "ProUser"
+                ? "bg-green-400"
+                : ""
+            } px-3 py-1 rounded-xl font-semibold text-gray-900`}
+          >
+            {userRequest === "Requested"
+              ? "Requested"
+              : userRequest === "Accepted" ||
+                userRole === "ProUser" ||
+                userRole === "Surveyor"
+              ? "Verified"
+              : ""}
           </span>
         </td>
         <td className="update_btn_tooltip">
@@ -45,6 +71,16 @@ const SingleUserRow = ({ singleUser, index, handleUpdateRoleInitiate }) => {
             </svg>
           </button>
         </td>
+        <td className="make_Surveyor_btn_tooltip">
+          {userRequest === "Requested" && (
+            <button
+              onClick={() => handleUpdateUserRole(singleUser._id, "YES")}
+              className="text-primary border border-primary hover:text-gray-800 hover:bg-primary rounded-xl px-2"
+            >
+              Approve
+            </button>
+          )}
+        </td>
       </tr>
       <Tooltip
         anchorSelect=".update_btn_tooltip"
@@ -52,7 +88,7 @@ const SingleUserRow = ({ singleUser, index, handleUpdateRoleInitiate }) => {
         className="z-50"
         variant="info"
       >
-        <p>Update</p>
+        <p>Update Status</p>
       </Tooltip>
     </>
   );

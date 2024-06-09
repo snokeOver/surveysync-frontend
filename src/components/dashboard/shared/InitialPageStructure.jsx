@@ -35,7 +35,7 @@ const InitialPageStructure = ({
               <>
                 {emptyDataMsg && (
                   <div className="text-center py-2">
-                    {data.length < 1 && (
+                    {data && data.length < 1 && (
                       <>
                         <h1 className="text-xl lg:text-4xl font-bold py-10">
                           {emptyDataMsg}

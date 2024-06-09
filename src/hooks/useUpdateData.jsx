@@ -2,8 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useSAxios from "./useSAxios";
 import useData from "./useData";
 import useSweetAlert from "./useSweetAlert";
+import useAuth from "./useAuth";
 
 const useUpdateData = () => {
+  const { setUserDetails } = useAuth();
   const queryClient = useQueryClient();
   const sAxios = useSAxios();
   const { setToastMsg, setActnBtnLoading } = useData();
@@ -17,6 +19,10 @@ const useUpdateData = () => {
     onSuccess: (data, variables) => {
       const { itemName, querryToInvalid } = variables;
       setToastMsg(`suc ${itemName} updated successfully !`);
+      if (data?.updatedUser) {
+        setUserDetails(data.updatedUser);
+      }
+
       setActnBtnLoading(false);
 
       // Invalidate queries to refetch data

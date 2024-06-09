@@ -11,16 +11,13 @@ import UserToggleButton from "../shared/UserToggleButton";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
-  const { userDetails } = useAuth();
-  const userRole = userDetails.userRole;
   const [toggle, setToggle] = useState(false);
-
+  const { userRole } = useAuth();
   const navigate = useNavigate();
 
   const handleToggle = () => {
-    setActive(!isActive);
+    setActive(!!isActive);
   };
-
   const toggleHandler = (e) => {
     setToggle(e.target.checked);
   };

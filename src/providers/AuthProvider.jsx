@@ -20,7 +20,10 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [regiSuccess, setRegiSuccess] = useState(false);
   const [tokenSaved, setTokenSaved] = useState(false);
-  const [userDetails, setUserDetails] = useState({ userRole: "User" }); //Initially should be null
+  const [userDetails, setUserDetails] = useState({
+    userRole: "User",
+    userRequest: "",
+  }); //Initially should be null
 
   // Register with email and password
   const register = (email, pass) => {
@@ -63,7 +66,8 @@ const AuthProvider = ({ children }) => {
 
         const { data } = await nSAxios.post("/api/jwt", { uid: currUser.uid });
         if (data) {
-          localStorage.setItem("access-token", data);
+          localStorage.setItem("access-token", data.token);
+          setUserDetails(data.userDetails);
           setTokenSaved(true);
         }
       } else {
@@ -93,6 +97,7 @@ const AuthProvider = ({ children }) => {
     tokenSaved,
     setTokenSaved,
     userDetails,
+    setUserDetails,
   };
   return (
     <AuthContext.Provider value={authItems}>{children}</AuthContext.Provider>

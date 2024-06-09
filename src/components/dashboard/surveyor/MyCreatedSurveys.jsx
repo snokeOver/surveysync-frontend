@@ -117,7 +117,7 @@ const MyCreatedSurveys = () => {
       pageTitle="All my created Surveys"
       error={error}
       isPending={isPending}
-      data={mySurveys}
+      data={mySurveys || []}
       emptyDataMsg="No Feedbacks From Admin Yet!"
       direction={`/dashboard/surveyor/create`}
       totalName="Survey"
@@ -125,7 +125,7 @@ const MyCreatedSurveys = () => {
       {/* Table section */}
       <TableViewStructure
         data={mySurveys || []}
-        tabCols={["Title", "Category", "Deadline"]}
+        tabCols={["Title", "Category", "Deadline", "Responses"]}
         actionBtnNumbers={3}
       >
         {mySurveys &&
