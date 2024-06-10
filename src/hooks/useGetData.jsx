@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useSAxios from "./useSAxios";
 import useAuth from "./useAuth";
 
-const useGetData = ({ apiRoute, dataId = "" }) => {
+const useGetData = ({ apiRoute, dataId = "", additionalQuerry = "" }) => {
   const sAxios = useSAxios();
   const { user } = useAuth();
 
@@ -18,7 +18,7 @@ const useGetData = ({ apiRoute, dataId = "" }) => {
 
     queryFn: async () => {
       const { data } = await sAxios.get(
-        `/api/${apiRoute}/${user.uid}/?dataId=${dataId}`
+        `/api/${apiRoute}/${user.uid}/?dataId=${dataId}&${additionalQuerry}`
       );
       return data.response;
     },

@@ -14,7 +14,11 @@ import SideSectionWithSlidder from "../components/shared/join_login/SideSectionW
 import { useFormik } from "formik";
 import { signInSchema } from "../helper/signUpSchema.js";
 
+import useSAxios from "../hooks/useSAxios.jsx";
+
 const Login = () => {
+  const sAxios = useSAxios();
+
   const {
     signIn,
     googleRegister,
@@ -77,7 +81,7 @@ const Login = () => {
       try {
         const { user } = await signIn(values.Email, values.Password);
         setRegiSuccess(true);
-        firebaseLoginSuccess();
+        inserUsrInfo(user.email, user.uid, user.displayName);
       } catch (err) {
         firebaseLoginError(err, values.Email);
       } finally {
@@ -91,7 +95,13 @@ const Login = () => {
     setGBtnLoading(true);
     try {
       const response = await googleRegister();
-      firebaseLoginSuccess();
+      if (response.user) {
+        inserUsrInfo(
+          response.user.email,
+          response.user.uid,
+          response.user.displayName
+        );
+      }
     } catch (err) {
       firebaseLoginError(err);
     }
@@ -102,7 +112,13 @@ const Login = () => {
     setGitBtnLoading(true);
     try {
       const response = await githubRegister();
-      firebaseLoginSuccess();
+      if (response.user) {
+        inserUsrInfo(
+          response.user.email,
+          response.user.uid,
+          response.user.displayName
+        );
+      }
     } catch (err) {
       firebaseLoginError(err);
     }
@@ -115,6 +131,21 @@ const Login = () => {
       setLogOutSuccess(false);
     }
   }, [logOutSuccess]);
+
+  // Insert user information in the database
+  const inserUsrInfo = async (email, uid, name) => {
+    const userInfo = {
+      email: email || "Private_Email",
+      uid: uid,
+      name: name,
+      role: "User",
+    };
+
+    const { data } = await sAxios.post("/api/create-user", userInfo);
+    if (data) {
+      firebaseLoginSuccess();
+    }
+  };
 
   return (
     <>

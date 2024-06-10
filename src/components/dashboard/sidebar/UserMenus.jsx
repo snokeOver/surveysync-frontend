@@ -9,21 +9,21 @@ const UserMenus = () => {
     <>
       {/* Statistics */}
       <DynamicNavLinks
-        address="/dashboard"
-        name="Statistics"
+        address="/dashboard/user"
+        name="User Statistics"
         icon={BsGraphUp}
       />
 
       {/* Participated Surveys */}
       <DynamicNavLinks
-        address="user/surveys"
+        address="/dashboard/user/surveys"
         name="Participated Surveys"
         icon={FcSurvey}
       />
 
       {/* Reported Surveys */}
       <DynamicNavLinks
-        address="user/my-reports"
+        address="/dashboard/user/my-reports"
         name="Reported Surveys"
         icon={TbFileReport}
       />

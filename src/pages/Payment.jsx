@@ -33,7 +33,7 @@ const Payment = () => {
 
   return (
     <>
-      <PageHelmet pageName="Payment" />
+      <PageHelmet pageName="Pricing" />
       <Container>
         <PageTitle title="Unlock All Our Features" />
         <div className="mx-auto">

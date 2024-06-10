@@ -68,7 +68,7 @@ const Navbar = () => {
             <>
               {/* Dashboard link */}
               <NavigationLink
-                destination="/dashboard"
+                destination={`/dashboard/admin`}
                 name="Dashboard"
                 nested="false"
               />

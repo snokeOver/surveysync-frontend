@@ -25,11 +25,11 @@ const RequestForSurveyor = () => {
     // id to target, name, apiName, payload, skipModal, querryToInvalid
     await updateSurveyResponse(
       userDetails._id,
-      "Your Status",
+      "Status",
       "user-request",
       payload,
       "noSkip",
-      "single-survey"
+      ["single-survey"]
     );
   };
   return (

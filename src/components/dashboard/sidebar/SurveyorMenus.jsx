@@ -8,28 +8,28 @@ const SurveyorMenus = () => {
     <>
       {/* Statistics */}
       <DynamicNavLinks
-        address="/dashboard"
-        name="Statistics"
+        address="/dashboard/surveyor"
+        name="Surveyor Statistics"
         icon={BsGraphUp}
       />
 
       {/* Create a survey */}
       <DynamicNavLinks
-        address="surveyor/create"
+        address="/dashboard/surveyor/create"
         name="Create Survey"
         icon={FcSurvey}
       />
 
       {/* My Surveys */}
       <DynamicNavLinks
-        address="surveyor/surveys"
+        address="/dashboard/surveyor/surveys"
         name="My Survey(s)"
         icon={MdHomeWork}
       />
 
       {/* Admin Feedbacks */}
       <DynamicNavLinks
-        address="surveyor/feedbacks"
+        address="/dashboard/surveyor/feedbacks"
         name="Admin Feedbacks"
         icon={FcFeedback}
       />

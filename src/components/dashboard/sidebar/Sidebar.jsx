@@ -8,12 +8,13 @@ import ProUserMenus from "./ProUserMenus";
 import SurveyorMenus from "./SurveyorMenus";
 import AdminMenus from "./AdminMenus";
 import UserToggleButton from "../shared/UserToggleButton";
+import useData from "../../../hooks/useData";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
   const { userDetails } = useAuth();
-  const userRole = userDetails.userRole;
-  const [toggle, setToggle] = useState(false);
+  const { toggle, setToggle } = useData();
+  const userRole = userDetails?.userRole;
 
   const navigate = useNavigate();
 
@@ -27,12 +28,18 @@ const Sidebar = () => {
 
   // Condition for User and try to hit the Surveyor button
   useEffect(() => {
-    if (userRole === "User" && toggle) {
-      navigate("/dashboard/user/request");
+    if (userRole === "User") {
+      navigate(toggle ? "/dashboard/user/request" : "/dashboard/user");
+    } else if (userRole === "Surveyor") {
+      navigate(toggle ? "/dashboard/surveyor" : "/dashboard/user");
+    } else if (userRole === "ProUser") {
+      navigate(toggle ? "/dashboard/surveyor" : "/dashboard/user");
+    } else if (userRole === "Admin") {
+      navigate("/dashboard/admin");
     } else {
-      navigate("/dashboard");
+      navigate("/dashboard/user");
     }
-  }, [toggle]);
+  }, [toggle, userRole]);
 
   return (
     <>

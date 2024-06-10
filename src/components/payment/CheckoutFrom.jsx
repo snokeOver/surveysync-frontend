@@ -111,8 +111,8 @@ const CheckoutForm = () => {
       console.log(data);
       setCurrPlan("");
       setCurrAmount(0);
-      getTokenAndUserDetils();
-      navigate("/dashboard");
+      getTokenAndUserDetils(userDetails.userId);
+      navigate("/dashboard/user");
     }
     // setClientSecret(data.clientSecret);
   };

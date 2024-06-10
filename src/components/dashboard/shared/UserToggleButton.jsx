@@ -16,7 +16,7 @@ const UserToggleButton = ({ toggleHandler, toggle }) => {
           checked={toggle}
         />
         <span className="px-4 py-1 rounded-l-md bg-primary peer-checked:bg-gray-300 flex-1 text-center duration-700 font-semibold">
-          {userDetails.userRole}
+          {userDetails.userRole === "Surveyor" ? "User" : userDetails.userRole}
         </span>
         <span className="px-4 py-1 rounded-r-md bg-gray-300 peer-checked:bg-primary flex-1 text-center duration-700 font-semibold">
           Surveyor

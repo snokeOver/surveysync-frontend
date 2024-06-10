@@ -41,7 +41,7 @@ const useUpdateData = () => {
     apiName,
     payload,
     direction = "",
-    querryToInvalid
+    querryToInvalid = []
   ) => {
     // console.log("Receiced APIName:", apiName);
     try {

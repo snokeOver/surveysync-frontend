@@ -21,10 +21,11 @@ const AuthProvider = ({ children }) => {
   const [regiSuccess, setRegiSuccess] = useState(false);
   const [tokenSaved, setTokenSaved] = useState(false);
   const [userDetails, setUserDetails] = useState({
-    userRole: "User",
+    userRole: "",
     userRequest: "",
   }); //Initially should be null
 
+  // console.log(userDetails);
   // Register with email and password
   const register = (email, pass) => {
     return createUserWithEmailAndPassword(auth, email, pass);

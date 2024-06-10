@@ -8,7 +8,6 @@ import Join from "../pages/Join";
 import Login from "../pages/Login";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
-import DashboardLayout from "../layouts/DashboardLayout";
 import ParticipatedSurveys from "../components/dashboard/user/ParticipatedSurveys";
 import ReportedSurveys from "../components/dashboard/user/ReportedSurveys";
 import ManageUsers from "../components/dashboard/admin/ManageUsers";
@@ -24,6 +23,10 @@ import MyCommentedSurveys from "../components/dashboard/proUser/MyCommentedSurve
 import Surveys from "../pages/Surveys";
 import RequestForSurveyor from "../components/dashboard/user/RequestForSurveyor";
 import Payment from "../pages/Payment";
+import UpdateSurvey from "../components/dashboard/surveyor/UpdateSurvey";
+import AdminDashboardLayout from "../layouts/AdminDashboardLayout";
+import UserDashboardLayout from "../layouts/UserDashboardLayout";
+import SurveyorDashboardLayout from "../layouts/SurveyorDashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -77,61 +80,86 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // Only Admin
   {
-    path: "/dashboard",
+    path: "/dashboard/admin",
     element: (
       <PrivateRoute>
-        <DashboardLayout />
+        <AdminDashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      //  Admin Routes
+      {
+        path: "users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "surveys",
+        element: <ManageSurveys />,
+      },
+      {
+        path: "payments",
+        element: <ViewAllPayments />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard/user",
+    element: (
+      <PrivateRoute>
+        <UserDashboardLayout />
       </PrivateRoute>
     ),
     children: [
       // Mango People routes
       {
-        path: "user/surveys",
+        path: "surveys",
         element: <ParticipatedSurveys />,
       },
       {
-        path: "user/request",
+        path: "request",
         element: <RequestForSurveyor />,
       },
 
       {
-        path: "user/my-reports",
+        path: "my-reports",
         element: <ReportedSurveys />,
       },
       {
-        path: "user/comments",
+        path: "comments",
         element: <MyCommentedSurveys />,
       },
+    ],
+  },
+  {
+    path: "/dashboard/surveyor",
+    element: (
+      <PrivateRoute>
+        <SurveyorDashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
       // Surveyor Routes
       {
-        path: "surveyor/create",
+        path: "create",
         element: <CreateASurvey />,
       },
       {
-        path: "surveyor/feedbacks",
+        path: "update/:id",
+        element: <UpdateSurvey />,
+      },
+      {
+        path: "feedbacks",
         element: <SurveyFeedbackes />,
       },
       {
-        path: "surveyor/surveys",
+        path: "surveys",
         element: <MyCreatedSurveys />,
       },
       {
-        path: "surveyor/survey/:id",
+        path: "survey/:id",
         element: <SurveyResponses />,
-      },
-      //  Admin Routes
-      {
-        path: "admin/users",
-        element: <ManageUsers />,
-      },
-      {
-        path: "admin/surveys",
-        element: <ManageSurveys />,
-      },
-      {
-        path: "admin/payments",
-        element: <ViewAllPayments />,
       },
     ],
   },

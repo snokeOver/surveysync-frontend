@@ -11,27 +11,27 @@ const ProUserMenus = () => {
     <>
       {/* Statistics */}
       <DynamicNavLinks
-        address="/dashboard"
-        name="Statistics"
+        address="/dashboard/user"
+        name="ProUser Statistics"
         icon={BsGraphUp}
       />
 
       {/* Participated Surveys */}
       <DynamicNavLinks
-        address="user/surveys"
+        address="/dashboard/user/surveys"
         name="Participated Surveys"
         icon={FcSurvey}
       />
 
       {/* Reported Surveys */}
       <DynamicNavLinks
-        address="user/my-reports"
+        address="/dashboard/user/my-reports"
         name="Reported Surveys"
         icon={TbFileReport}
       />
       {/* Create a survey */}
       <DynamicNavLinks
-        address="user/comments"
+        address="/dashboard/user/comments"
         name="Commented Surveys"
         icon={FaRegMessage}
       />

@@ -9,29 +9,29 @@ const AdminMenus = () => {
     <>
       {/* Statistics */}
       <DynamicNavLinks
-        address="/dashboard"
-        name="Statistics"
+        address="/dashboard/admin"
+        name="Admin Statistics"
         icon={BsGraphUp}
       />
 
       {/* Manage users */}
       <DynamicNavLinks
-        address="admin/users"
+        address="/dashboard/admin/users"
         name="Manage Users"
         icon={MdOutlineManageAccounts}
       />
 
       {/* Manage Surveys */}
       <DynamicNavLinks
-        address="admin/surveys"
+        address="/dashboard/admin/surveys"
         name="Manage Surveys"
         icon={FcSurvey}
       />
 
       {/* Manage Payments */}
       <DynamicNavLinks
-        address="admin/payments"
-        name="Manage Payments"
+        address="/dashboard/admin/payments"
+        name="View Payments"
         icon={GiTakeMyMoney}
       />
     </>

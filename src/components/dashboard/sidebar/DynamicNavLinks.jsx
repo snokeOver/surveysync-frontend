@@ -6,9 +6,9 @@ const DynamicNavLinks = ({ address, name, icon: Icon }) => {
       to={address}
       end
       className={({ isActive }) =>
-        `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-primary   hover:text-gray-900 ${
+        `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-primary hover:text-gray-900 rounded-sm ${
           isActive
-            ? "bg-primary  text-gray-800"
+            ? "dark:bg-yellow-200 bg-sky-300  text-gray-800"
             : "dark:text-gray-100 text-gray-900"
         }`
       }

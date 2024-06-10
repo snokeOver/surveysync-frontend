@@ -1,8 +1,3 @@
-import Container from "../../shared/Container";
-import GoToTopBtn from "../../shared/GoToTopBtn";
-import PageHelmet from "../../shared/PageHelmet";
-import PageTitle from "../../shared/PageTitle";
-import ButtonSpinner from "../../shared/ButtonSpinner";
 import useUpdateData from "../../../hooks/useUpdateData";
 import { useEffect, useState } from "react";
 import ActionButton from "../../shared/ActionButton";
@@ -82,7 +77,7 @@ const ManageSurveys = () => {
           "update-survey-status",
           payload,
           "noSkip",
-          "all-surveys"
+          ["all-surveys"]
         );
         actions.resetForm();
         setOpenModal(false);

@@ -1,6 +1,6 @@
 import SingleUserRow from "./SingleUserRow";
 import useUpdateData from "../../../hooks/useUpdateData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActionButton from "../../shared/ActionButton";
 import useGetData from "../../../hooks/useGetData";
 import InitialPageStructure from "../shared/InitialPageStructure";
@@ -9,19 +9,29 @@ import useAuth from "../../../hooks/useAuth";
 import useData from "../../../hooks/useData";
 
 const SurveyResponses = () => {
+  const updateUserRole = useUpdateData();
+
+  const [openModal, setOpenModal] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const [currRole, setCurrRole] = useState("");
+  const [currUserRole, setCurrUserRole] = useState("");
+
   const { user } = useAuth();
   const { setToastMsg } = useData();
   const {
     data: allUsers,
     isPending,
     error,
-  } = useGetData({ apiRoute: "all-users" });
+    refetch: refetchUsers,
+  } = useGetData({
+    apiRoute: "all-users",
+    additionalQuerry: `userRole=${currUserRole}`,
+  });
 
-  const updateUserRole = useUpdateData();
-
-  const [openModal, setOpenModal] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
-  const [currRole, setCurrRole] = useState("");
+  // Refetch data when currentPage or itemsPerPage changes
+  useEffect(() => {
+    refetchUsers();
+  }, [currUserRole]);
 
   // handle the Update initiation
   const handleUpdateRoleInitiate = (currUser) => {
@@ -51,7 +61,7 @@ const SurveyResponses = () => {
       "update-user-role",
       payload,
       "noSkip",
-      "all-users"
+      ["all-users"]
     );
     setCurrRole(currentUser.userRole);
     setCurrentUser({});
@@ -67,6 +77,31 @@ const SurveyResponses = () => {
       emptyDataMsg="No Users Registered Yet!"
       totalName="User"
     >
+      {/* Filter secion */}
+      <div className="flex items-center flex-col xl:flex-row gap-4 md:gap-10 justify-between min-h-0 bg-blue-200 dark:bg-gray-800 rounded-lg w-[98%] lg:w-[90%] mx-auto py-5 lg:py-2 px-5">
+        {/* End part */}
+        <div className="flex items-center gap-3 md:gap-10 flex-1 flex-col md:flex-row w-full lg:justify-end">
+          {/* Category Part */}
+          <div className="flex flex-col lg:flex-row w-full">
+            <div className="form-control min-w-44">
+              <select
+                onChange={(e) => {
+                  setCurrUserRole(e.target.value);
+                }}
+                type="text"
+                className="select category-select select-bordered w-full bg-sky-100 dark:bg-gray-800 border-sky-500 dark:border-yellow-100"
+              >
+                <option value="">Select a Category</option>
+                <option value="Surveyor">Surveyor</option>
+                <option value="User">User</option>
+                <option value="ProUser">ProUser</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Table section */}
       <TableViewStructure
         data={allUsers || []}

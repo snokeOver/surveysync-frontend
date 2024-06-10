@@ -11,6 +11,7 @@ const DataProvider = ({ children }) => {
   const [actnBtnLoading, setActnBtnLoading] = useState(false);
   const [currAmount, setCurrAmount] = useState(0);
   const [currPlan, setCurrPlan] = useState("");
+  const [toggle, setToggle] = useState(false);
 
   const defaultTheme = "dark";
 
@@ -86,6 +87,8 @@ const DataProvider = ({ children }) => {
     setCurrAmount,
     currPlan,
     setCurrPlan,
+    toggle,
+    setToggle,
   };
 
   return (

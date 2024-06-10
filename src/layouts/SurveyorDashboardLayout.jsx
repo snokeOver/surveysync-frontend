@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/sidebar/Sidebar";
 import Header from "../components/header/Header";
 
-const DashboardLayout = () => {
+const SurveyorDashboardLayout = () => {
   return (
     <div>
       <Header />
@@ -16,4 +16,4 @@ const DashboardLayout = () => {
   );
 };
 
-export default DashboardLayout;
+export default SurveyorDashboardLayout;

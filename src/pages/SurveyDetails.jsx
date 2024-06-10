@@ -96,7 +96,7 @@ const SurveyDetails = () => {
       "survey-response",
       payload,
       "noSkip",
-      "single-survey"
+      ["single-survey"]
     );
   };
 
@@ -130,7 +130,7 @@ const SurveyDetails = () => {
       "survey-response",
       payload,
       "skip",
-      "single-survey"
+      ["single-survey"]
     );
   };
 
@@ -168,7 +168,7 @@ const SurveyDetails = () => {
       "survey-response",
       payload,
       "skip",
-      "single-survey"
+      ["single-survey"]
     );
   };
 
@@ -243,7 +243,7 @@ const SurveyDetails = () => {
             "survey-response",
             payload,
             "skip",
-            "single-survey"
+            ["single-survey"]
           );
         }
       } catch (err) {

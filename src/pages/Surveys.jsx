@@ -8,9 +8,7 @@ import PrimaryButton from "../components/shared/PrimaryButton";
 import { useEffect, useState } from "react";
 import PaginationBtns from "../components/shared/pagination/PaginationBtns";
 import useData from "../hooks/useData";
-import { FaRegArrowAltCircleUp, FaRegArrowAltCircleDown } from "react-icons/fa";
 import TableViewStructure from "../components/dashboard/shared/TableViewStructure";
-import SingleSurveyRow from "../components/dashboard/surveyor/SingleSurveyRow";
 import SurveyTableRow from "../components/surveys/SurveyTableRow";
 
 const Surveys = () => {
@@ -105,7 +103,6 @@ const Surveys = () => {
       totalName="Matched Survey"
     >
       {/* navigation bar */}
-
       <div className="flex items-center flex-col xl:flex-row gap-4 md:gap-10 justify-between min-h-0 bg-blue-200 dark:bg-gray-800 rounded-lg w-[98%] lg:w-[90%] mx-auto py-5 lg:py-2 px-5">
         {/* start part */}
         <div className="flex flex-1 w-full">
@@ -199,6 +196,7 @@ const Surveys = () => {
           </div>
         </div>
       </div>
+
       {!layoutSelect ? (
         <>
           {/* Card View Data */}
