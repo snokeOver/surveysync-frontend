@@ -29,6 +29,8 @@
 
 - **_Customizable Surveys_**: Allows surveyors to customize survey questions, options, categories, and deadlines, enabling flexibility and meeting specific survey requirements efficiently.
 
+<h2>Packages Used</h2>
+
 - **_Firebase_**: Used for secure and robust user registration, logging, authentication.
 - **_React-Router, React-Router-Dom_**: To handle all routing of this SPA.
 - **_Swiper_**: Used to show the banner images in a slide view.
