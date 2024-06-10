@@ -11,7 +11,7 @@ const SurveyTableRow = ({ singleSurvey, index }) => {
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-105 duration-500">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-[1.02] duration-500">
         <th>{index + 1}</th>
         <td className={`my_tooltip_${index}`}>{title}</td>
         <td>

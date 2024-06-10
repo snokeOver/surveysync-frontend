@@ -2,7 +2,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 const HowItWorksCard = ({ data }) => {
   const { title, description, image } = data;
   return (
-    <div className="card w-72 card-compact bg-base-100 rounded-xl border dark:border-yellow-200 border-sky-200 shadow-xl mr-10 md:mr-16 lg:mr-28 hover:!scale-95 duration-500">
+    <div className="card w-72 card-compact bg-base-100 rounded-xl border dark:border-yellow-200 border-sky-200 shadow-xl mr-10 md:mr-16 lg:mr-28 hover:!scale-[1.02] duration-500">
       <figure className="mt-7 ">
         <div className="w-2/3 ">
           <img

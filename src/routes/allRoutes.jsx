@@ -23,6 +23,7 @@ import Profile from "../pages/Profile";
 import MyCommentedSurveys from "../components/dashboard/proUser/MyCommentedSurveys";
 import Surveys from "../pages/Surveys";
 import RequestForSurveyor from "../components/dashboard/user/RequestForSurveyor";
+import Payment from "../pages/Payment";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
       },
       {
         path: "/survey-details/:id",
@@ -89,6 +94,7 @@ const router = createBrowserRouter([
         path: "user/request",
         element: <RequestForSurveyor />,
       },
+
       {
         path: "user/my-reports",
         element: <ReportedSurveys />,

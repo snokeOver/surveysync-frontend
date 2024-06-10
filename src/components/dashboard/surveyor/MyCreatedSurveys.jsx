@@ -118,7 +118,7 @@ const MyCreatedSurveys = () => {
       error={error}
       isPending={isPending}
       data={mySurveys || []}
-      emptyDataMsg="No Feedbacks From Admin Yet!"
+      emptyDataMsg="You didn't create any survey Yet!"
       direction={`/dashboard/surveyor/create`}
       totalName="Survey"
     >

@@ -1,25 +1,22 @@
-import { FaLock } from "react-icons/fa";
 import ActionButton from "../../shared/ActionButton";
 import Container from "../../shared/Container";
 import PageHelmet from "../../shared/PageHelmet";
 import PageTitle from "../../shared/PageTitle";
-import { useMutation } from "@tanstack/react-query";
 
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import useSAxios from "../../../hooks/useSAxios";
+
 import useAuth from "../../../hooks/useAuth";
 import useData from "../../../hooks/useData";
 import { surveyFormSchema } from "../../../helper/formValidation";
 import { useFormik } from "formik";
-import useSweetAlert from "../../../hooks/useSweetAlert";
+import usePostData from "../../../hooks/usePostData";
 
 const CreateASurvey = () => {
-  const sAxios = useSAxios();
   const { user } = useAuth();
-  const { setActnBtnLoading, setToastMsg, surveyCategories } = useData();
-  const makeAlert = useSweetAlert();
+  const createSurvey = usePostData();
+  const { setActnBtnLoading, surveyCategories } = useData();
 
   // Initial values for the form and formik
   const initialValues = {
@@ -28,17 +25,6 @@ const CreateASurvey = () => {
     Category: "",
     Description: "",
   };
-
-  const { mutateAsync } = useMutation({
-    mutationFn: async (surveyData) => {
-      const { data } = sAxios.post("/api/create-survey", surveyData);
-      return data;
-    },
-    onSuccess: () => {
-      setToastMsg("suc Survey created successfully !");
-      setActnBtnLoading(false);
-    },
-  });
 
   // Handle the Creating of a survey process using formik and validation schema design with yup
   const formik = useFormik({
@@ -55,17 +41,12 @@ const CreateASurvey = () => {
         deadline: values.Deadline,
         category: values.Category,
       };
-      try {
-        const result = await makeAlert("Yes, Create this survey!");
-        if (result.isConfirmed) {
-          await mutateAsync(postData);
-        }
-      } catch (err) {
-        console.log(err.message);
-        setActnBtnLoading(false);
-      } finally {
-        action.resetForm();
-      }
+
+      await createSurvey("Survey", "create-survey", postData, "noSkip", [
+        "surveyor-surveys",
+      ]);
+
+      action.resetForm();
     },
   });
 

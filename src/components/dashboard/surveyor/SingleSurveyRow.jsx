@@ -13,7 +13,7 @@ const SingleSurveyRow = ({
 
   return (
     <>
-      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-95 duration-500">
+      <tr className="cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-400 hover:scale-[1.02] duration-500">
         <th>{index + 1}</th>
         <td>{title}</td>
         <td>{category}</td>

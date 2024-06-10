@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { SlLike } from "react-icons/sl";
 import {
   formatDate,
-  formatDateTime,
   truncateDescription,
 } from "../../../helper/helperFunction";
 
@@ -14,7 +13,7 @@ const SurveyCard = ({ survey }) => {
     survey;
 
   return (
-    <div className="card card-compact bg-base-100 rounded-xl border dark:border-gray-500 border-gray-300 shadow-xl hover:scale-105 duration-500">
+    <div className="card card-compact bg-base-100 rounded-xl border dark:border-gray-500 border-gray-300 shadow-xl hover:scale-[1.02] duration-500">
       <div className="card-body">
         <div className=" flex-grow">
           <h2 className="card-title text-lg text-primary ">{title}</h2>

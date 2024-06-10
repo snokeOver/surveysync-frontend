@@ -21,7 +21,8 @@ import { GiVote } from "react-icons/gi";
 // import from "../helper/formValidation.js"
 
 const SurveyDetails = () => {
-  const { user } = useAuth(); //Update this with userInfo from useAuth
+  const { user, userDetails } = useAuth(); //Update this with userInfo from useAuth
+  const { userRole } = userDetails;
   const { setActnBtnLoading, setToastMsg } = useData();
   const { id } = useParams();
   const makeAlert = useSweetAlert();
@@ -186,17 +187,15 @@ const SurveyDetails = () => {
       if (response.isConfirmed) {
         return navigate("/login");
       }
-    }
-    // else if (userRole !== "ProUser") {
-    //   const response = await makeAlert(
-    //     "Become a 'ProUser'",
-    //     `Only 'ProUsers' are allowed  !`
-    //   );
-    //   if (response.isConfirmed) {
-    //     // Open a modal to make secure payment
-    //   }
-    // }
-    else {
+    } else if (userRole !== "ProUser") {
+      const response = await makeAlert(
+        "Become a 'ProUser'",
+        `Only 'ProUsers' are allowed  !`
+      );
+      if (response.isConfirmed) {
+        navigate("/payment");
+      }
+    } else {
       // Start the Update comment sequence
       setOpenCommentSection((currValue) => !currValue);
     }
@@ -262,7 +261,6 @@ const SurveyDetails = () => {
       isPending={isPending}
       data={aSurvey}
     >
-      {}
       <div className="md:container mx-2 bg-base-100 md:mx-auto">
         <div className="card card-compact w-full p-4">
           <div className="flex w-full flex-col  border rounded-xl dark:border-gray-700 border-gray-300 p-4">

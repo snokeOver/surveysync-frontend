@@ -5,7 +5,7 @@ import { formatDateTime } from "../../../helper/helperFunction";
 const SingleFeedback = ({ adminFeedback, index }) => {
   const { createdAt, feedback, status } = adminFeedback;
   return (
-    <section className="border dark:border-gray-700 border-gray-300 pt-2 pb-4 px-4 bg-gray-700 rounded-lg hover:scale-105 duration-500">
+    <section className="border dark:border-gray-700 border-gray-300 pt-2 pb-4 px-4 bg-gray-700 rounded-lg hover:scale-[1.02] duration-500">
       <div className="text-sm flex flex-col md:flex-row gap-2 text-gray-800 font-semibold">
         <h4 className="">
           <span className="dark:text-gray-400">Feedback #{index + 1}</span>

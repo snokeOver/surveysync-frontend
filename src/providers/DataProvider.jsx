@@ -9,6 +9,8 @@ const DataProvider = ({ children }) => {
   const [gBtnLoading, setGBtnLoading] = useState(false);
   const [gitBtnLoading, setGitBtnLoading] = useState(false);
   const [actnBtnLoading, setActnBtnLoading] = useState(false);
+  const [currAmount, setCurrAmount] = useState(0);
+  const [currPlan, setCurrPlan] = useState("");
 
   const defaultTheme = "dark";
 
@@ -80,6 +82,10 @@ const DataProvider = ({ children }) => {
     setGitBtnLoading,
     setActnBtnLoading,
     surveyCategories,
+    currAmount,
+    setCurrAmount,
+    currPlan,
+    setCurrPlan,
   };
 
   return (

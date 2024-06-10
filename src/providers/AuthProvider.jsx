@@ -58,21 +58,27 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // Get Token and user details
+  const getTokenAndUserDetils = async (currUser) => {
+    const { data } = await nSAxios.post("/api/jwt", { uid: currUser.uid });
+    if (data) {
+      localStorage.setItem("access-token", data.token);
+      setUserDetails(data.userDetails);
+
+      setTokenSaved(true);
+    }
+  };
+
   //   Observe ther user change
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currUser) => {
       if (currUser?.uid) {
         setUser(currUser);
-
-        const { data } = await nSAxios.post("/api/jwt", { uid: currUser.uid });
-        if (data) {
-          localStorage.setItem("access-token", data.token);
-          setUserDetails(data.userDetails);
-          setTokenSaved(true);
-        }
+        getTokenAndUserDetils(currUser);
       } else {
         localStorage.removeItem("access-token");
         setTokenSaved(false);
+        logOut();
       }
 
       setLoading(false);
@@ -98,6 +104,7 @@ const AuthProvider = ({ children }) => {
     setTokenSaved,
     userDetails,
     setUserDetails,
+    getTokenAndUserDetils,
   };
   return (
     <AuthContext.Provider value={authItems}>{children}</AuthContext.Provider>

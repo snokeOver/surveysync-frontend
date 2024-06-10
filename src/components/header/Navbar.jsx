@@ -12,7 +12,7 @@ import RingLoading from "../shared/RingLoading";
 
 const Navbar = () => {
   const { siteLogo, pageLoading } = useData();
-  const { user, loading } = useAuth();
+  const { user, loading, userDetails } = useAuth();
   const logOut = useLogOut();
 
   const makeAlert = useSweetAlert();
@@ -37,11 +37,9 @@ const Navbar = () => {
   const navItems = (
     <>
       {/* Home link */}
-
       <NavigationLink destination="/" name="Home" nested="false" />
 
       {/* Survey link */}
-
       <NavigationLink destination="/surveys" name="Surveys" nested="false" />
 
       {/* Company link */}
@@ -50,11 +48,9 @@ const Navbar = () => {
           <summary className="dark:text-gray-100">Company</summary>
           <ul className="p-2 rounded-t-none rounded-b-md z-50">
             {/* About Link */}
-
             <NavigationLink destination="/about" name="About" nested="true" />
 
             {/* Contact Link */}
-
             <NavigationLink
               destination="/contact"
               name="Contact"
@@ -80,6 +76,9 @@ const Navbar = () => {
           )}
         </>
       )}
+
+      {/* Survey link */}
+      <NavigationLink destination="/payment" name="Pricing" nested="false" />
     </>
   );
 
@@ -164,7 +163,7 @@ const Navbar = () => {
                 <SubNavLink
                   destination="/user-profile"
                   name="Profile"
-                  badgeValue="New"
+                  badgeValue={userDetails?.userRole}
                 />
 
                 {/* Dashboard link */}
