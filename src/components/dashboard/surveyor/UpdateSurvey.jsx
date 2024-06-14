@@ -23,6 +23,14 @@ const UpdateSurvey = () => {
 
   const updateSurvey = useUpdateData();
 
+  // Initial values for the form and formik
+  const initialValues = {
+    Title: "",
+    Deadline: new Date(),
+    Category: "",
+    Description: "",
+  };
+
   //   Update the Current survey when single survey data fetched
   useEffect(() => {
     if (aSurvey) {
@@ -36,14 +44,6 @@ const UpdateSurvey = () => {
       // setCurrentSurvey(aSurvey);
     }
   }, [aSurvey]);
-
-  // Initial values for the form and formik
-  const initialValues = {
-    Title: "",
-    Deadline: new Date(),
-    Category: "",
-    Description: "",
-  };
 
   // Handle the update  of a survey process using formik and validation schema design with yup
   const formik = useFormik({

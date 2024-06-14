@@ -1,4 +1,5 @@
-import { formatDateTime } from "../../../helper/helperFunction";
+import { formatDateTime } from "../../../../helper/helperFunction";
+
 const SinglePaymentRow = ({ singlePayment, index }) => {
   const { paidAmount, txId, packageName, createdAt, userId } = singlePayment;
 
@@ -12,7 +13,7 @@ const SinglePaymentRow = ({ singlePayment, index }) => {
 
         <td>
           <span className="px-3 py-1 rounded-xl font-semibold text-gray-900 bg-sky-400">
-            {paidAmount}
+            ${paidAmount}
           </span>
         </td>
         <td>
@@ -22,7 +23,7 @@ const SinglePaymentRow = ({ singlePayment, index }) => {
                 ? "bg-green-400"
                 : packageName === "Plus"
                 ? "bg-sky-400"
-                : ""
+                : "bg-gray-400"
             } px-3 py-1 rounded-xl font-semibold text-gray-900`}
           >
             {packageName}

@@ -9,8 +9,15 @@ import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
-  const { userDetails, getTokenAndUserDetils } = useAuth();
-  const { setActnBtnLoading, currPlan, setCurrPlan, setCurrAmount } = useData();
+  const { userDetails, setUserDetails } = useAuth();
+  const {
+    setActnBtnLoading,
+    currPlan,
+    setCurrPlan,
+    setCurrAmount,
+    setToastMsg,
+  } = useData();
+
   const createPaymentIntent = usePostData();
   const createPaymentDetails = usePostData();
   const elements = useElements();
@@ -43,7 +50,6 @@ const CheckoutForm = () => {
     } else {
       // console.log("Payment Method:", paymentMethod);
       setErrorMessage("");
-      setActnBtnLoading(false);
     }
 
     //  Confirm Payment
@@ -59,17 +65,18 @@ const CheckoutForm = () => {
       });
 
     if (confirmError) {
-      console.log("Confirm Error:", confirmError);
+      // console.log("Confirm Error:", confirmError);
       setActnBtnLoading(false);
     } else {
       // console.log("Payment Intent:", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        console.log("Pyment success with tx Id:", paymentIntent.id);
+        // console.log("Pyment success with tx Id:", paymentIntent.id);
 
         // save the paymenet details in the server
         handleCreatePaymentDetils(paymentIntent.id);
+      } else {
+        setActnBtnLoading(false);
       }
-      setActnBtnLoading(false);
     }
   };
 
@@ -108,13 +115,14 @@ const CheckoutForm = () => {
       ["surveyor-surveys"] //will be change after manage-payment page
     );
     if (data) {
-      console.log(data);
+      // console.log(data);
+      setToastMsg(`suc $${currAmount} Payment Successful.`);
       setCurrPlan("");
       setCurrAmount(0);
-      getTokenAndUserDetils(userDetails.userId);
+      setUserDetails(data.response.updateUser);
+      setActnBtnLoading(false);
       navigate("/dashboard/user");
     }
-    // setClientSecret(data.clientSecret);
   };
 
   return (

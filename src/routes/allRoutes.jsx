@@ -27,6 +27,12 @@ import UpdateSurvey from "../components/dashboard/surveyor/UpdateSurvey";
 import AdminDashboardLayout from "../layouts/AdminDashboardLayout";
 import UserDashboardLayout from "../layouts/UserDashboardLayout";
 import SurveyorDashboardLayout from "../layouts/SurveyorDashboardLayout";
+import SurveyResponsesForAdmin from "../components/dashboard/admin/payments_SurveyResponse/SurveyResponsesForAdmin";
+import AdminStatistics from "../components/dashboard/admin/AdminStatistics";
+import SurveyorStatistics from "../components/dashboard/surveyor/SurveyorStatistics";
+import UserStatistics from "../components/dashboard/user/UserStatistics";
+import ProUserDashboardLayout from "../layouts/ProUserDashboardLayout";
+import ProUserStatistics from "../components/dashboard/proUser/ProUserStatistics";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +53,7 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
       {
-        path: "/profile",
+        path: "/user-profile",
         element: <Profile />,
       },
       {
@@ -91,8 +97,16 @@ const router = createBrowserRouter([
     children: [
       //  Admin Routes
       {
+        path: "",
+        element: <AdminStatistics />,
+      },
+      {
         path: "users",
         element: <ManageUsers />,
+      },
+      {
+        path: "survey/:id",
+        element: <SurveyResponsesForAdmin />,
       },
       {
         path: "surveys",
@@ -104,6 +118,26 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // Pro user
+  {
+    path: "/dashboard/prouser",
+    element: (
+      <PrivateRoute>
+        <ProUserDashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <ProUserStatistics />,
+      },
+      {
+        path: "comments",
+        element: <MyCommentedSurveys />,
+      },
+    ],
+  },
+  // user only
   {
     path: "/dashboard/user",
     element: (
@@ -113,6 +147,10 @@ const router = createBrowserRouter([
     ),
     children: [
       // Mango People routes
+      {
+        path: "",
+        element: <UserStatistics />,
+      },
       {
         path: "surveys",
         element: <ParticipatedSurveys />,
@@ -126,12 +164,9 @@ const router = createBrowserRouter([
         path: "my-reports",
         element: <ReportedSurveys />,
       },
-      {
-        path: "comments",
-        element: <MyCommentedSurveys />,
-      },
     ],
   },
+  // Surveyor only
   {
     path: "/dashboard/surveyor",
     element: (
@@ -141,6 +176,10 @@ const router = createBrowserRouter([
     ),
     children: [
       // Surveyor Routes
+      {
+        path: "",
+        element: <SurveyorStatistics />,
+      },
       {
         path: "create",
         element: <CreateASurvey />,

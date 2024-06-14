@@ -11,17 +11,17 @@ const SingleResponseRow = ({ singleResponse, index }) => {
         <td className={`my_tooltip_${index}`}>{email}</td>
         <td>{name}</td>
         <td>
-          <span
+          <p
             className={`${
               vote === "YES"
                 ? "bg-green-400"
                 : vote === "NO"
                 ? "bg-red-400"
                 : "bg-yellow-500"
-            } px-3 py-1 rounded-xl font-semibold text-gray-900`}
+            } px-3 py-1 rounded-xl font-semibold text-gray-900 inline-block`}
           >
             {vote || "Not Voted"}
-          </span>
+          </p>
         </td>
         <td>
           <span

@@ -1,6 +1,6 @@
 import useGetPublicData from "../../hooks/useGetPublicData";
-import ButtonSpinner from "../shared/ButtonSpinner";
 import Container from "../shared/Container";
+import HowItWorksSkeleton from "../shared/HowItWorksSkeleton";
 import PageTitle from "../shared/PageTitle";
 import HowItWorksCard from "../shared/cards/HowItWorksCard";
 import Marquee from "react-fast-marquee";
@@ -20,7 +20,7 @@ const HowItWorks = () => {
       {/* Will make a custom error message component*/}
       {error && <div>Error: {error.message}</div>}
       {isPending ? (
-        <ButtonSpinner />
+        <HowItWorksSkeleton />
       ) : (
         <div className="text-center md:container md:mx-auto py-3 px-1 md:p-3 md:py-14">
           <Marquee>

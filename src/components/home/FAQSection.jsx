@@ -1,7 +1,7 @@
 import useGetPublicData from "../../hooks/useGetPublicData";
-import ButtonSpinner from "../shared/ButtonSpinner";
 import Container from "../shared/Container";
 import PageTitle from "../shared/PageTitle";
+import TableSkeleton from "../shared/TableSkeleton";
 import SingleAccording from "../shared/cards/SingleAccording";
 
 const FAQSection = () => {
@@ -18,7 +18,7 @@ const FAQSection = () => {
       />
       <div className="flex flex-col gap-4 md:gap-7">
         {isPending ? (
-          <ButtonSpinner />
+          <TableSkeleton />
         ) : (
           <>
             {faqData.map((data) => (

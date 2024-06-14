@@ -1,5 +1,5 @@
 const Profile = () => {
-  return <div>User profile</div>;
+  return <div>User profile Comming soon</div>;
 };
 
 export default Profile;

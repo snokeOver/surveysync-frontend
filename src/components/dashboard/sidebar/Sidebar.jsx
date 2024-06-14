@@ -33,7 +33,7 @@ const Sidebar = () => {
     } else if (userRole === "Surveyor") {
       navigate(toggle ? "/dashboard/surveyor" : "/dashboard/user");
     } else if (userRole === "ProUser") {
-      navigate(toggle ? "/dashboard/surveyor" : "/dashboard/user");
+      navigate(toggle ? "/dashboard/prouser" : "/dashboard/user");
     } else if (userRole === "Admin") {
       navigate("/dashboard/admin");
     } else {
@@ -44,7 +44,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      <div className="bg-base-100  flex justify-between md:hidden">
+      <div className="bg-base-100 flex justify-between md:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold"></div>
         </div>
@@ -81,7 +81,7 @@ const Sidebar = () => {
 
               {/* ProUsers can toggle between ProUsers to Surveyor */}
               {userRole === "ProUser" &&
-                (toggle ? <SurveyorMenus /> : <ProUserMenus />)}
+                (toggle ? <ProUserMenus /> : <UserMenus />)}
 
               {/* for admin only */}
               {userRole === "Admin" && <AdminMenus />}
@@ -94,7 +94,7 @@ const Sidebar = () => {
 
           {/* Profile Menu */}
           <NavLink
-            to="/profile"
+            to="/user-profile"
             className={({ isActive }) =>
               `flex items-center  py-2 my-5  transition-colors duration-300 transform  hover:bg-primary   hover:text-gray-900 w-full  ${
                 isActive

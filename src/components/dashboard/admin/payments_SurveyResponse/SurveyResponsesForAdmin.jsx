@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
-import SingleResponseRow from "./SingleResponseRow";
-import useGetData from "../../../hooks/useGetData";
-import InitialPageStructure from "../shared/InitialPageStructure";
-import TableViewStructure from "../shared/TableViewStructure";
-import ToggleBtn from "../shared/ToggleBtn";
+import SingleResponseRow from "../../surveyor/SingleResponseRow";
+import useGetData from "../../../../hooks/useGetData";
+import InitialPageStructure from "../../shared/InitialPageStructure";
+import TableViewStructure from "../../shared/TableViewStructure";
 import { useEffect, useState } from "react";
-import ChartViewStructure from "../shared/ChartViewStructure";
+import ChartViewStructure from "../../shared/ChartViewStructure";
+import ToggleBtn from "../../shared/ToggleBtn";
 
-const SurveyResponses = () => {
+const SurveyResponsesForAdmin = () => {
   const { id } = useParams();
   const [toggle, setToggle] = useState(false);
 
@@ -59,6 +59,7 @@ const SurveyResponses = () => {
       ]);
     }
   }, [surveyResponse?.userResponses]);
+
   return (
     <InitialPageStructure
       pageName="Survey Response"
@@ -106,6 +107,7 @@ const SurveyResponses = () => {
         </>
       ) : (
         <>
+          {" "}
           {/* Chart View Structure */}
           <div className="flex items-center justify-center">
             <ChartViewStructure data={chartData} />
@@ -116,4 +118,4 @@ const SurveyResponses = () => {
   );
 };
 
-export default SurveyResponses;
+export default SurveyResponsesForAdmin;

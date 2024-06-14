@@ -31,7 +31,7 @@ const AdminMenus = () => {
       {/* Manage Payments */}
       <DynamicNavLinks
         address="/dashboard/admin/payments"
-        name="View Payments"
+        name="Payments & Survey Responses"
         icon={GiTakeMyMoney}
       />
     </>

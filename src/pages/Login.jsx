@@ -17,6 +17,7 @@ import { signInSchema } from "../helper/signUpSchema.js";
 import useSAxios from "../hooks/useSAxios.jsx";
 
 const Login = () => {
+  const { setUserDetails } = useAuth();
   const sAxios = useSAxios();
 
   const {
@@ -143,6 +144,7 @@ const Login = () => {
 
     const { data } = await sAxios.post("/api/create-user", userInfo);
     if (data) {
+      if (data.savedUser) setUserDetails(data.savedUser);
       firebaseLoginSuccess();
     }
   };

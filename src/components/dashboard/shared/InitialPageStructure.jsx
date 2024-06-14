@@ -1,10 +1,11 @@
 import PageHelmet from "../../shared/PageHelmet";
 import Container from "../../shared/Container";
 import PageTitle from "../../shared/PageTitle";
-import ButtonSpinner from "../../shared/ButtonSpinner";
 import GoToTopBtn from "../../shared/GoToTopBtn";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../shared/PrimaryButton";
+import TableSkeleton from "../../shared/TableSkeleton";
+import CardSkeleton from "../../shared/CardSkeleton";
 
 const InitialPageStructure = ({
   pageName,
@@ -15,6 +16,7 @@ const InitialPageStructure = ({
   emptyDataMsg,
   direction,
   totalName,
+  customSkeleton = "",
   children,
 }) => {
   return (
@@ -30,7 +32,11 @@ const InitialPageStructure = ({
 
             {/* Handle pending time */}
             {isPending ? (
-              <ButtonSpinner />
+              customSkeleton === "Card" ? (
+                <CardSkeleton />
+              ) : (
+                <TableSkeleton />
+              )
             ) : (
               <>
                 {emptyDataMsg && (

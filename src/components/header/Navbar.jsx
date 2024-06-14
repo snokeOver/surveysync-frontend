@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-
 import NavigationLink from "./NavigationLink";
 import SubNavLink from "./SubNavLink";
 import SiteName from "../shared/SiteName";
@@ -167,7 +166,7 @@ const Navbar = () => {
                 />
 
                 {/* Dashboard link */}
-                <SubNavLink destination="/dashboard" name="Dashboard" />
+                <SubNavLink destination="/dashboard/admin" name="Dashboard" />
 
                 <li
                   onClick={handleLogOut}

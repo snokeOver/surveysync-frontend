@@ -18,6 +18,7 @@ import ButtonSpinner from "../components/shared/ButtonSpinner.jsx";
 
 const Join = () => {
   const sAxios = useSAxios();
+  const { setUserDetails } = useAuth();
   const {
     register,
     updateUser,
@@ -59,6 +60,7 @@ const Join = () => {
     };
     const { data } = await sAxios.post("/api/create-user", userInfo);
     if (data) {
+      if (data.savedUser) setUserDetails(data.savedUser);
       firebaseRegiSuccess();
     }
   };

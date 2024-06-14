@@ -30,7 +30,7 @@ const useDeleteData = () => {
   });
 
   const handleDeleteData = async (id, itemName, apiName) => {
-    console.log("Receiced APIName:", apiName);
+    // console.log("Receiced APIName:", apiName);
     setActnBtnLoading(true);
     try {
       const result = await makeAlert(`Yes, Delete this ${itemName}!`);

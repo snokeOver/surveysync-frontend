@@ -91,7 +91,7 @@ const SurveyResponses = () => {
                 type="text"
                 className="select category-select select-bordered w-full bg-sky-100 dark:bg-gray-800 border-sky-500 dark:border-yellow-100"
               >
-                <option value="">Select a Category</option>
+                <option value="">Select a User Role</option>
                 <option value="Surveyor">Surveyor</option>
                 <option value="User">User</option>
                 <option value="ProUser">ProUser</option>

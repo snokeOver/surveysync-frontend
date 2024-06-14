@@ -101,6 +101,7 @@ const Surveys = () => {
       data={[...Array(validSurveys[1]).keys()]}
       emptyDataMsg="No Valid Surveys Found!"
       totalName="Matched Survey"
+      customSkeleton="Card"
     >
       {/* navigation bar */}
       <div className="flex items-center flex-col xl:flex-row gap-4 md:gap-10 justify-between min-h-0 bg-blue-200 dark:bg-gray-800 rounded-lg w-[98%] lg:w-[90%] mx-auto py-5 lg:py-2 px-5">

@@ -64,11 +64,12 @@ const AuthProvider = ({ children }) => {
     const { data } = await nSAxios.post("/api/jwt", { uid: currUser.uid });
     if (data) {
       localStorage.setItem("access-token", data.token);
-      setUserDetails(data.userDetails);
 
+      setUserDetails(data.userDetails);
       setTokenSaved(true);
     }
   };
+  // console.log(userDetails);
 
   //   Observe ther user change
   useEffect(() => {

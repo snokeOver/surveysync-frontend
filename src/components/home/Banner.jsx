@@ -12,8 +12,7 @@ import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 
 import { useTypewriter } from "react-simple-typewriter";
 import CountUp from "react-countup";
-import useData from "../../hooks/useData";
-import PrimaryButton from "../shared/PrimaryButton";
+
 import SecondaryButton from "../shared/SecondaryButton";
 
 const Banner = () => {
@@ -85,7 +84,7 @@ const Banner = () => {
               alt={image.title}
               className="w-full h-auto"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black to-black opacity-30"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black to-black opacity-70"></div>
           </SwiperSlide>
         ))}
         <div className="autoplay-progress" slot="container-end">
@@ -130,7 +129,14 @@ const Banner = () => {
             <span className="text-transparent">.</span>
           </h1>
         </div>
-        <div className="w-[70%] lg:w-3/4 xl:w-1/2 mx-auto flex justify-center">
+        <div
+          onClick={() =>
+            document
+              .querySelector("#latest_section")
+              .scrollIntoView({ behavior: "smooth" })
+          }
+          className="w-[70%] lg:w-3/4 xl:w-1/2 mx-auto flex justify-center"
+        >
           <SecondaryButton btntext="Explore" />
         </div>
       </div>
