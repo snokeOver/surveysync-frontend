@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
     userRequest: "",
   }); //Initially should be null
 
-  // console.log(userDetails);
+  // console.log(auth);
   // Register with email and password
   const register = (email, pass) => {
     return createUserWithEmailAndPassword(auth, email, pass);
@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
   const signIn = (email, pass) => {
     return signInWithEmailAndPassword(auth, email, pass);
   };
+
   // Register with Google
   const googleRegister = () => {
     const googleProvider = new GoogleAuthProvider();

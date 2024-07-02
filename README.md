@@ -1,11 +1,17 @@
 <h1>SurveySync</h1>
 
-<h2>Webiste Catagory:</h2>
-<p>Category_0020</p>
-<p>Survey Management Website</p>
+<h2>Proceed To Run On Your Local</h2>
+
+- **_Have A Local Version_** Clone or download the latest commited version of this frontend for your local machine
+
+- **_Initiate Projects_** use "npm install" to install all the necessary dependencies
+
+- **_Set Up The Environment Variables_** Don't forget to set up the environment variables needed to run this projects. Most variable are defined in index.js file.
+
+- **\_Find The Backend** Clone or download the backend from here: https://github.com/snokeOver/surveysync-backend
 
 <h2>Live Site URL</h2>
-<p>Cick here to go to the live website: <a href="https://survey-sync0.web.app/">https://survey-sync0.web.app/</a></p>
+<p>Cick here for live website: <a href="https://survey-sync0.web.app">https://survey-sync0.web.app</a></p>
 
 <h2>Features and Characteristics</h2>
 
@@ -40,3 +46,5 @@
 - **_React-Toastify_**: Used for making visually pleasing toast on user actions.
 - **_React-fast-marquee_**: Used to create a marquee section at home page.
 - **_Sweetalert2_**: Used to make professional alert system for potential operation
+- **_Recharts_**: Used to create visually appealing charts
+- **_Stripe_**: Used to implement secure payment system

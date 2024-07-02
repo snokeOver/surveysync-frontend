@@ -45,8 +45,8 @@ const Login = () => {
 
   // handle Firebase error while registering
   const firebaseLoginError = (err) => {
-    console.log(err.message);
-    console.log(err.code);
+    // console.log(err.message);
+    // console.log(err.code);
     if (err.code === "auth/invalid-credential") {
       setToastMsg("err Either email or password is wrong  !");
     } else {
@@ -96,6 +96,7 @@ const Login = () => {
     setGBtnLoading(true);
     try {
       const response = await googleRegister();
+
       if (response.user) {
         inserUsrInfo(
           response.user.email,
@@ -104,6 +105,7 @@ const Login = () => {
         );
       }
     } catch (err) {
+      console.log({ err });
       firebaseLoginError(err);
     }
   };
