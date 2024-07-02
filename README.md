@@ -2,13 +2,13 @@
 
 <h2>Proceed To Run On Your Local</h2>
 
-- **_Have A Local Version_** Clone or download the latest commited version of this frontend for your local machine
+- **_Have A Local Version_**: Clone or download the latest commited version of this frontend for your local machine
 
-- **_Initiate Projects_** use "npm install" to install all the necessary dependencies
+- **_Initiate Projects_**: use "npm install" to install all the necessary dependencies
 
-- **_Set Up The Environment Variables_** Don't forget to set up the environment variables needed to run this projects. Most variable are defined in index.js file.
+- **_Set Up The Environment Variables_**: Don't forget to set up the environment variables with your own credentials needed to run this projects. Most variable are defined in index.js file.
 
-- **\_Find The Backend** Clone or download the backend from here: https://github.com/snokeOver/surveysync-backend
+- **_Find The Backend_**: Clone or download the backend from here: https://github.com/snokeOver/surveysync-backend
 
 <h2>Live Site URL</h2>
 <p>Cick here for live website: <a href="https://survey-sync0.web.app">https://survey-sync0.web.app</a></p>
