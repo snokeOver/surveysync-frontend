@@ -8,13 +8,12 @@ import { formatDateTime } from "../helper/helperFunction";
 import ActionButton from "../components/shared/ActionButton";
 
 const Profile = () => {
-  const { userDetails, user, updateUser } = useAuth();
-  const { setPageLoading, setToastMsg } = useData();
+  const { user, updateUser } = useAuth();
+  const { setActnBtnLoading, setToastMsg } = useData();
 
   const [firebaseError, setFirebaseError] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
-  const [profileUpdate, setProfileUpdate] = useState(false);
   const fallbackPPUrl = "https://i.ibb.co/vxg6nY4/user.png";
 
   const [formData, setFormData] = useState({
@@ -35,7 +34,7 @@ const Profile = () => {
   // handle Update profile section
   const handleUpdateProfile = (e) => {
     e.preventDefault();
-    setPageLoading(true);
+    setActnBtnLoading(true);
     updateUser(user, {
       displayName: formData.name,
       photoURL: formData.photoUrl,
@@ -43,13 +42,13 @@ const Profile = () => {
       .then((result) => {
         setFirebaseError("");
         setUpdateMsg("Profile updated successfully!");
-        setProfileUpdate(true);
-        setPageLoading(false);
+
+        setActnBtnLoading(false);
       })
       .catch((err) => {
         setFirebaseError(err.code);
         setUpdateMsg("");
-        setPageLoading(false);
+        setActnBtnLoading(false);
       });
   };
 
@@ -164,7 +163,7 @@ const Profile = () => {
                 />
               </div>
               <div className="card-body w-full md:w-[80%] mx-auto  px-5 items-center gap-4 mb-6">
-                <ActionButton disabledStat={btnDisabled} buttonText="Update" />
+                <ActionButton isDisable={btnDisabled} buttonText="Update" />
               </div>
             </div>
           </form>
