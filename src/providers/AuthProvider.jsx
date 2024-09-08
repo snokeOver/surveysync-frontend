@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [regiSuccess, setRegiSuccess] = useState(false);
+
   const [tokenSaved, setTokenSaved] = useState(false);
   const [userDetails, setUserDetails] = useState({
     userRole: "",
