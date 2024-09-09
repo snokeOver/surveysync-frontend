@@ -35,6 +35,8 @@
 
 - **_Customizable Surveys_**: Allows surveyors to customize survey questions, options, categories, and deadlines, enabling flexibility and meeting specific survey requirements efficiently.
 
+- **_Profile and Dashboard_**: User profile section to know and update details and seperate dashboard for users
+
 <h2>Packages Used</h2>
 
 - **_Firebase_**: Used for secure and robust user registration, logging, authentication.
