@@ -6,7 +6,7 @@
 
 - **_Initiate Projects_**: use "npm install" to install all the necessary dependencies
 
-- **_Set Up The Environment Variables_**: Don't forget to set up the environment variables with your own credentials needed to run this projects. Most variable are defined in index.js file.
+- **_Set Up The Environment Variables_**: Don't forget to set up the environment variables with your own credentials needed to run this projects. Most variable are defined in .en file.
 
 - **_Find The Backend_**: Clone or download the backend from here: https://github.com/snokeOver/surveysync-backend
 
